@@ -1,156 +1,82 @@
-# ElevatedHere — Partner Organisation (PO) Module
+# ElevatedHere
 
-Design documentation for the Partner Organisation workspace: the surface an employer, NGO,
-government body or community organisation uses to sponsor wellbeing services for the people it
-serves, and to see what that sponsorship achieved.
+Marketing site and design documentation for the ElevatedHere platform — sponsored wellbeing
+infrastructure: funding, delivery and proof, with privacy held at the centre.
 
-> **This repository documents design, not code.** The source of truth for the interface is the
-> Figma file; this repo records the model, decisions and conventions so the design survives
-> hand-off and so the next person does not have to reverse-engineer it from screens.
+**Live site:** https://clepbo.github.io/ElevatedHere/ *(enable Pages — see below)*
 
 ---
 
-## 1. What the module is for
+## What is in here
 
-The PO layer is not an administrative workspace that happens to list people. Its purpose is an
-**impact intelligence layer**: the organisation funds services, and the module answers *what did
-that money buy* — in adoption, in outcomes, and in return on social investment — without ever
-exposing what an individual said in a session.
+```
+index.html                  Home — the full motion showcase
+partner-organisations.html  For sponsoring organisations
+beneficiaries.html          For the people receiving care
+providers.html              For therapists, coaches and lawyers
+pricing.html                Tiers, platform fee, comparison table
+faq.html                    Privacy / money / delivery questions
 
-Three commitments follow from that, and they constrain every screen:
+assets/styles.css           Design tokens + home-page sections
+assets/components.css       Shared components for inner pages + responsive rules
+assets/app.js               Motion engine
+assets/logo-*.png           Brand marks (dark and light)
 
-1. **The organisation sees the what and the how much, never the what was said.**
-2. **Every debit is attributed** — to a beneficiary, a Project or Programme, and a provider — at
-   the moment it is created. Attribution is what makes cost-per-outcome possible at all.
-3. **Aggregates are suppressed below a minimum cohort size** (5) so no individual is identifiable
-   by subtraction.
+docs/design-system.md       Tokens, type scale, components, chart construction, copy rules
+docs/decisions.md           Product and design decisions, with reasoning
+docs/screen-inventory.md    All 153 product screens by role
+docs/image-brief.md         Prompts for the photography still to be produced
+```
 
-## 2. Vocabulary
+No build step, no dependencies. Open `index.html` directly, or serve the folder.
 
-Terminology is deliberate and consistent across the module — the UI was renamed to match.
+## Publishing to GitHub Pages
 
-| Term | Meaning |
-|---|---|
-| **Beneficiary (EU)** | The sponsored end user receiving services. *Never* "member" or "user". |
-| **Partner Organisation (PO)** | The sponsoring tenant — employer, NGO, government, community. |
-| **Service Provider (SP)** | Therapist, coach, lawyer or clinic delivering a service. |
-| **Programme** | A reporting and outcome-target construct spanning Projects and cohorts. Holds the funding envelope. |
-| **Project** | An operational unit with its own budget pool, providers and enrolled beneficiaries. |
-| **Cohort / Segment** | A group of beneficiaries sharing a trait — department, geography, funder, employer, vulnerability segment. |
-| **Allowance** | A per-beneficiary spending cap, drawn from a Project or Programme budget. |
-| **Budget pool** | Money allocated to a Project or cohort, drawn down as services are used. |
+The site sits at the repository root, so no workflow is needed:
 
-## 3. Roles
+1. **Settings → Pages**
+2. **Source:** Deploy from a branch
+3. **Branch:** `main`, folder **`/ (root)`** → Save
 
-Five roles, each with its own screen set. The reduced sets are intentional scoping, not gaps.
+It goes live at `https://clepbo.github.io/ElevatedHere/` within a minute or two. `.nojekyll` is
+included so Jekyll does not interfere with the asset folder.
 
-| Role | Persona | Sees |
+## Design system
+
+The site uses the platform's own tokens — no invented colours, and Inter throughout.
+
+| Token | Value | Use |
 |---|---|---|
-| **Owner** | Jackson Obi | Everything. Funds the wallet, approves budget increases, configures the privacy dial. |
-| **Admin-Manager** | Bola Ade | Operational parity with Owner, minus tenant-level and billing-mode control. |
-| **Finance-Billing** | Ada Umeh | Wallet, budgets, invoices, transactions, reconciliation. Cost without outcome detail. |
-| **Project-Manager** | Tunde Fashola | One Project's workspace. Requests budget rather than funding it. |
-| **Analyst-Viewer** | Zainab Bello | Read-only aggregate reporting. No named beneficiary data. |
+| `--green` | `#098e2d` | Primary actions, highlights, positive deltas |
+| `--green-900` | `#04250f` | Dark bands (a shade of the brand green, not a new hue) |
+| `--ink` | `#17181c` | Headings and body |
+| `--grey` | `#8a8f8a` | Secondary text |
+| `--border` | `#e5e7e5` | Panel and table borders |
+| `--tile` | `#fafafa` | Page ground and stat tiles |
 
-Where a role sees less, the interface says *why* — a lock icon and a one-line reason, never a
-silently missing panel.
+Full reference in [`docs/design-system.md`](docs/design-system.md).
 
-## 4. Information architecture
+## Motion
 
-```
-Overview
-Beneficiaries ──── Directory · Engagement
-Cohorts & Segments
-Providers ──────── Direct SP Panel · Marketplace
-Programs & Projects ─ Programs · Projects
-Financials ─────── Overview · Wallet & Funding · Allowances & Budgets · Invoices & Seats · Transactions
-Reports & ROI ──── L1 Operational · L2 Engagement · L3 Outcome · L4 Impact & ROI
-Settings ───────── Org Profile & Type · Team & Roles · Privacy & Consent · Audit Log
-```
+Every entrance animation is **two-way** — it plays on the way down and reverses on the way back up.
+Counters reset and re-run; the word-by-word highlight is scroll-linked in both directions.
 
-Screens are named `PO — Section · Subsection (Role)`, with state suffixes `— Empty`,
-`— No Results`, `— Failed`. The convention is load-bearing: ordering, nav highlighting and
-role propagation all match on it.
+- Preloader with a scrambling word (once per session; `?nopre` skips it)
+- Twin hero photo columns scrolling in opposite directions, pausing on hover
+- Word-by-word statement reveal
+- Words parting to admit a photo card
+- Offset benefit rows sliding in from the side
+- Arrow ticker, orbiting service icons, counters, animated progress bars
+- Testimonial carousel, magnetic buttons, scroll progress bar
 
-## 5. The money model
+All of it is disabled under `prefers-reduced-motion`.
 
-```
-PO tops up wallet ──▶ allocated to Programme envelope
-                          └─▶ Project budget pool ──▶ beneficiary allowance
-                                    │
-       beneficiary books a service ─┴─▶ ESCROW ──▶ delivery confirmed ──▶ SP payout
-                                                                   └─▶ EH platform fee
-```
+## Before this goes public
 
-Every naira in the wallet sits in exactly one of five states, and they reconcile on screen:
-
-**Available** + **Allocated to project budgets** + **Allocated to allowances** + **Committed (in
-escrow)** + **Reserved for seats** = **Wallet balance**
-
-Decisions worth knowing:
-
-- **Reserved for seats is carved out of the balance**, not held separately.
-- **Seats and platform fees settle automatically from available wallet funds** on the due date,
-  with a card fallback. Service spend never appears on an invoice — it draws from Project budgets
-  as it happens.
-- **Fees are charged on top** of a top-up so the full amount reaches the wallet (processing fee,
-  VAT on the fee, electronic transfer levy shown separately before confirmation).
-- **KYC tiers (CBN three-tier)** cap wallet balance and transaction size; the UI blocks and
-  explains rather than failing at the gateway.
-- **Changing org currency does not convert funds.** A second balance opens in the new currency;
-  conversion is an explicit, rate-stamped action.
-- **Withdrawals** go only to the verified organisation account, with a 24-hour hold above a
-  threshold — an AML control that cannot be skipped.
-
-## 6. Privacy and consent model
-
-Three tiers govern everything the organisation can see:
-
-| Tier | Examples | Visibility |
-|---|---|---|
-| **Always private** | Session content, notes, recordings, case evidence, diagnoses | Never, regardless of who pays |
-| **Operational** | Enrolment, spend, utilisation, active status | Consent-gated, governed by the Privacy Dial |
-| **Aggregate** | Outcome trends, satisfaction, provider performance | Always safe, subject to minimum cohort size |
-
-The **Privacy Dial** (Owner-only, overridable per Project) moves between *privacy-first* and
-*case-management*, and shows the consequence before it is moved — including that widening it
-requires re-consent from already-enrolled beneficiaries. Always-private data is **structurally
-absent**, never shown as a locked row.
-
-## 7. Reporting ladder
-
-| Level | Answers | Contains |
-|---|---|---|
-| **L1 Operational** | What exists? | Beneficiaries, providers, projects, budgets; programme economics |
-| **L2 Engagement** | Are they using it? | Activation, utilisation, retention, re-engagement; conversion funnel |
-| **L3 Outcome** | Did it help? | Wellbeing, satisfaction, resolution, completion |
-| **L4 Impact & ROI** | Was it worth it? | Cost per outcome, programme ROI, funding efficiency, social return |
-
-**Programme economics** (cross-cutting): cost per beneficiary, per session, per case, per outcome;
-programme utilisation; budget efficiency; provider efficiency. Each is spend divided by a stated
-denominator, and **the denominator is always shown** — a cost-per-outcome figure means nothing
-without knowing what counted as an outcome.
-
-## 8. Module at a glance
-
-153 screens across five roles.
-
-| Role | Screens |
-|---|---|
-| Owner | 74 |
-| Admin-Manager | 55 |
-| Finance-Billing | 12 |
-| Analyst-Viewer | 8 |
-| Project-Manager | 4 |
-
-See [`docs/screen-inventory.md`](docs/screen-inventory.md) for the full list,
-[`docs/design-system.md`](docs/design-system.md) for tokens and components, and
-[`docs/decisions.md`](docs/decisions.md) for the decision log.
-
-## 9. Open items
-
-- Multi-currency is modelled for display and conversion; multi-currency *settlement* is not built.
-- L2–L4 reporting shows real populated figures with a phase note where full breakdowns are still
-  to come.
-- Provider photography uses placeholders pending an image source.
-- Notification preferences and the activation checklist exist as concepts, not built screens.
+1. **Pricing is invented.** Structurally right, commercially made up — a warning banner says so on
+   the page. Replace the figures and remove the banner.
+2. **Testimonials are illustrative**, written to be plausible. Replace or remove.
+3. **Photography is placeholder** (Unsplash, hotlinked, credited in the footer).
+   [`docs/image-brief.md`](docs/image-brief.md) has prompts for the 17 images that should replace it.
+4. **Statistics** come from the design data, not audited figures. Confirm before claiming publicly.
+5. Links marked `href="#"` — About, Careers, Contact, legal pages — need real destinations.

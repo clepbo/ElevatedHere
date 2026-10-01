@@ -42,6 +42,15 @@ The site sits at the repository root, so no workflow is needed:
 It goes live at `https://clepbo.github.io/ElevatedHere/` within a minute or two. `.nojekyll` is
 included so Jekyll does not interfere with the asset folder.
 
+## Layout
+
+The shell tracks the viewport rather than locking to a fixed column: it fills the window up to
+**1720px**, past which a text line stops being comfortable to read. The outer margin
+(`clamp(24px,3.4vw,96px)`), the inner gutter (`clamp(18px,3vw,72px)`), the body size and the
+display sizes all scale with the screen, so the proportions hold from a 390px phone to an
+ultrawide. Verified at 400 / 820 / 1180 / 1400 / 1900 / 2500 with no horizontal overflow on any
+page.
+
 ## Design system
 
 The site uses the platform's own tokens — no invented colours, and Inter throughout.

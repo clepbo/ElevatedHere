@@ -20,6 +20,10 @@
 /* ---------- cards ---------- */
 .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 38px; }
 @media (max-width:920px) { .cards { grid-template-columns: 1fr; } }
+/* Wider sets: eight wellbeing dimensions and the four ways a session is paid for. */
+.dim-grid, .pay-grid { grid-template-columns: repeat(4,1fr); }
+@media (max-width:1180px) { .dim-grid, .pay-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:620px)  { .dim-grid, .pay-grid { grid-template-columns: 1fr; } }
 .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; display: flex; flex-direction: column; gap: 12px; text-decoration: none; transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .3s; }
 a.card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: #cfd8cf; }
 .card h3 { font-size: 19px; }

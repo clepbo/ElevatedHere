@@ -125,9 +125,13 @@ td.yes { color: var(--green); font-weight: 600; } td.no { color: var(--grey); }
 .plan .btn { width: 100%; justify-content: center; margin-top: 20px; }
 
 /* ---------- quote band ---------- */
-.quote { position: relative; min-height: 440px; display: flex; align-items: flex-end; border-radius: var(--r-xl); overflow: hidden; }
-.quote img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.quote::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(4,37,15,.95) 6%, rgba(4,37,15,.45) 50%, rgba(4,37,15,.1) 100%); }
+.quote { position: relative; min-height: 440px; max-height: 560px; display: flex; align-items: flex-end; border-radius: var(--r-xl); overflow: hidden; }
+.quote img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 78% 22%; }
+/* Two scrims, not one: the vertical pass grounds the band, the horizontal pass
+   gives the quote a solid side to sit on so it never floats over busy frame. */
+.quote::after { content: ""; position: absolute; inset: 0; background:
+  linear-gradient(0deg, rgba(4,37,15,.92) 4%, rgba(4,37,15,.42) 46%, rgba(4,37,15,.08) 100%),
+  linear-gradient(90deg, rgba(4,37,15,.88) 0%, rgba(4,37,15,.55) 38%, rgba(4,37,15,0) 68%); }
 .quote-body { position: relative; z-index: 1; padding: clamp(22px,4vw,46px); color: #fff; max-width: 62ch; }
 .quote-body blockquote { margin: 12px 0 0; font-size: clamp(17px,2.2vw,26px); line-height: 1.38; letter-spacing: -.02em; }
 .quote-by { margin-top: 16px; font-size: 14px; color: rgba(255,255,255,.72); }

@@ -55,6 +55,43 @@ function measure() {
   document.body.style.height = Math.round(wrapper.scrollHeight) + 'px';
 }
 
+/* Lazy images below the fold load as you approach them and change the page
+   height after the fact, which is why the footer used to run out of scroll
+   before its last band. Re-measure whenever the wrapper resizes. */
+if ('ResizeObserver' in window) {
+  const ro = new ResizeObserver(() => measure());
+  addEventListener('DOMContentLoaded', () => { if (wrapper) ro.observe(wrapper); });
+}
+
+/* Anchor links cannot work on their own once the content sits in a fixed,
+   transformed wrapper — the browser has no document offset to scroll to. Resolve
+   the target against the wrapper and drive the window scroll ourselves. */
+function anchorY(el) {
+  const base = wrapper ? wrapper.getBoundingClientRect().top : 0;
+  const navH = nav ? nav.getBoundingClientRect().height + 22 : 24;
+  return Math.max(0, el.getBoundingClientRect().top - base - navH);
+}
+
+addEventListener('click', (e) => {
+  const a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const id = a.getAttribute('href').slice(1);
+  if (!id) return;
+  const el = document.getElementById(id);
+  if (!el) return;
+  e.preventDefault();
+  scrollTo({ top: anchorY(el), behavior: REDUCED ? 'auto' : 'smooth' });
+  history.replaceState(null, '', '#' + id);
+});
+
+/* Same problem on arrival: a page opened at /page.html#section lands at the top. */
+addEventListener('load', () => {
+  const id = location.hash.slice(1);
+  if (!id) return;
+  const el = document.getElementById(id);
+  if (el) setTimeout(() => scrollTo({ top: anchorY(el), behavior: 'auto' }), 60);
+});
+
 /* ---------- jobs ---------- */
 const jobs = [];
 let last = performance.now();

@@ -171,6 +171,38 @@ p{margin:0}
 .device-top{background:var(--ink);height:22px}
 .dev-body{padding:14px}
 
+/* ============ two-column blocks ============ */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.duo-36{gap:36px}
+.duo-wide{grid-template-columns:1.1fr .9fr}
+@media(max-width:860px){.duo,.duo-wide{grid-template-columns:1fr;gap:30px}}
+
+/* ============ funnel ============
+   One series across ordered stages: bar length carries the count, the ordinal
+   green ramp carries stage position. Ramp validated as light->dark with
+   monotone lightness, adjacent dL >= .06, and a light end at 2.31:1 on surface. */
+.funnel{margin:0;background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:clamp(20px,2.4vw,30px)}
+.funnel figcaption{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:20px}
+.fn-title{font-weight:600;font-size:15px;letter-spacing:-.012em;color:var(--ink)}
+.fn-sub{font-size:12.5px;color:var(--grey)}
+.fn-plot{display:grid}
+.fn-row{position:relative;display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:12px}
+.fn-stage{font-size:13px;color:var(--ink)}
+.fn-track{display:block;height:22px;border-radius:4px;background:var(--tile);overflow:hidden}
+.fn-track>i{display:block;height:100%;border-radius:0 4px 4px 0;transition:width .9s var(--ease-out)}
+.fn-val{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);min-width:32px;text-align:right}
+.fn-drop{margin:4px 0 4px 96px;font-size:11.5px;color:var(--grey)}
+.fn-drop span{color:#b45309;font-weight:600}
+.fn-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);font-size:13px;color:var(--grey)}
+.fn-foot b{color:var(--ink)}
+.fn-tip{position:absolute;left:96px;top:calc(100% - 2px);z-index:6;max-width:min(300px,78%);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .18s var(--ease),transform .18s var(--ease);background:var(--ink);color:#fff;font-size:12px;line-height:1.35;padding:7px 10px;border-radius:8px;box-shadow:0 8px 24px rgba(23,24,28,.2)}
+.fn-row:hover .fn-tip,.fn-row:focus-within .fn-tip{opacity:1;transform:none}
+@media(max-width:560px){
+  .fn-row{grid-template-columns:72px 1fr auto;gap:9px}
+  .fn-drop{margin-left:81px}
+  .fn-tip{left:0;max-width:100%}
+}
+
 /* ============ testimonial carousel ============ */
 .tcar{position:relative;overflow:hidden;border-radius:var(--r-xl)}
 .ttrack{display:flex;transition:transform .8s var(--ease)}
@@ -222,7 +254,7 @@ p{margin:0}
 
 /* ============ footer ============ */
 footer{position:relative;overflow:hidden;background:var(--green-900);color:#fff;padding:clamp(48px,6vw,72px) 0 0;margin-top:clamp(40px,6vw,80px)}
-.foot-grid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:32px}
+.foot-grid{display:grid;grid-template-columns:1.7fr repeat(2,1fr);gap:32px}
 @media(max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}}
 footer h4{font-size:12px;text-transform:uppercase;letter-spacing:.07em;opacity:.72;margin-bottom:13px}
 footer a{color:rgba(255,255,255,.9);text-decoration:none;font-size:14.5px;display:block;width:fit-content;padding:5px 0;transition:transform .25s var(--ease),color .2s}

@@ -46,7 +46,7 @@
         <p class="hero-sub fade-up d1"><b>Fund therapy, coaching and legal support</b> for the people you serve — then prove <b>what that money actually bought</b>, in outcomes rather than invoices, without ever seeing what was said in a session.</p>
         <div class="hero-actions fade-up d2">
           <a class="btn btn-dark" href="#demo">Book a demo <span class="cap">↗</span></a>
-          <a class="btn btn-light" href="#how">See how it works <span class="cap">↗</span></a>
+          <a class="btn btn-light" href="#benefits">See how it works <span class="cap">↗</span></a>
         </div>
         <div class="hero-tags fade-up d3">
           <span class="tag">NDPR &amp; GDPR aligned</span>
@@ -109,7 +109,6 @@
     <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
       <span class="eyebrow">Unlocking value</span>
       <h2 class="big" style="flex:1;min-width:260px">Our Benefits</h2>
-      <a class="chip" href="#demo">Explore all <span class="hl">benefits</span> ↗</a>
     </div>
 
     <div style="margin-top:34px">
@@ -149,7 +148,7 @@
 
   <!-- ================= cluster: outcomes ================= -->
   <section class="section">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center" class="reveal">
+    <div class="duo" class="reveal">
       <div>
         <h2 style="font-size:clamp(28px,4vw,46px)"><span class="mark">Increase</span> the number of verified outcomes</h2>
         <p class="muted" style="margin-top:18px;max-width:46ch">Outcomes are measured through validated wellbeing indices at intake and intervals, plus resolution status for case work — aggregated so no individual is identifiable, and honest about who could not be assessed.</p>
@@ -183,7 +182,7 @@
 
   <!-- ================= orbit: every service, one wallet ================= -->
   <section class="section" style="background:var(--tile);border-radius:var(--r-xl)">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center" class="reveal">
+    <div class="duo" class="reveal">
       <div class="orbit">
         <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
         <div class="spin">
@@ -214,7 +213,7 @@
 
   <!-- ================= reach statement ================= -->
   <section class="section">
-    <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center" class="reveal">
+    <div class="duo duo-wide reveal">
       <div>
         <h2 style="font-size:clamp(28px,4.4vw,52px)">Reach up to <span class="hl" data-count="78%">0%</span> of the people you fund</h2>
         <p class="muted" style="margin-top:18px;max-width:46ch">Activation is the number that decides whether a wellbeing budget was worth spending. Invitations, consent, cohort nudges and re-engagement are all instrumented, so you can see exactly where people fall away — and do something about it.</p>
@@ -223,21 +222,49 @@
           <a class="btn btn-light" href="partner-organisations.html">For organisations <span class="cap">↗</span></a>
         </div>
       </div>
-      <div style="display:grid;place-items:center">
-        <div class="device">
-          <div class="device-top"></div>
-          <div class="dev-body">
-            <div style="font-size:11px;color:var(--grey)">Engagement funnel</div>
-            <div style="display:grid;gap:5px;margin-top:10px">
-              <span style="display:block;padding:9px;border-radius:8px;background:#098e2d;color:#fff;font-size:11px;text-align:center">Invited · 368</span>
-              <span style="display:block;padding:9px;border-radius:8px;background:#2f9e4f;color:#fff;font-size:11px;text-align:center;width:88%;margin-inline:auto">Consented · 312</span>
-              <span style="display:block;padding:9px;border-radius:8px;background:#5cb878;color:#fff;font-size:11px;text-align:center;width:77%;margin-inline:auto">Activated · 279</span>
-              <span style="display:block;padding:9px;border-radius:8px;background:#8fd0a3;color:#fff;font-size:11px;text-align:center;width:64%;margin-inline:auto">Engaged · 228</span>
-              <span style="display:block;padding:9px;border-radius:8px;background:#bfe5cb;color:#0a6b23;font-size:11px;text-align:center;width:50%;margin-inline:auto">Retained · 169</span>
-            </div>
+      <figure class="funnel reveal">
+        <figcaption>
+          <span class="fn-title">Engagement funnel</span>
+          <span class="fn-sub">One cohort &middot; 90 days</span>
+        </figcaption>
+        <div class="fn-plot">
+          <div class="fn-row">
+            <span class="fn-stage">Invited</span>
+            <span class="fn-track"><i style="width:100.0%;background:#62ba82"></i></span>
+            <span class="fn-val">368</span>
+            <span class="fn-tip" role="tooltip">Invited &middot; 368 of 368 (100%) &mdash; invitations sent</span>
+          </div>
+          <div class="fn-drop"><span>&minus;56</span></div>
+          <div class="fn-row">
+            <span class="fn-stage">Consented</span>
+            <span class="fn-track"><i style="width:84.8%;background:#3aa363"></i></span>
+            <span class="fn-val">312</span>
+            <span class="fn-tip" role="tooltip">Consented &middot; 312 of 368 (85%) &mdash; agreed to take part</span>
+          </div>
+          <div class="fn-drop"><span>&minus;25</span></div>
+          <div class="fn-row">
+            <span class="fn-stage">Activated</span>
+            <span class="fn-track"><i style="width:78.0%;background:#1e8c48"></i></span>
+            <span class="fn-val">287</span>
+            <span class="fn-tip" role="tooltip">Activated &middot; 287 of 368 (78%) &mdash; booked a first session</span>
+          </div>
+          <div class="fn-drop"><span>&minus;51</span></div>
+          <div class="fn-row">
+            <span class="fn-stage">Engaged</span>
+            <span class="fn-track"><i style="width:64.1%;background:#0c7132"></i></span>
+            <span class="fn-val">236</span>
+            <span class="fn-tip" role="tooltip">Engaged &middot; 236 of 368 (64%) &mdash; attended more than once</span>
+          </div>
+          <div class="fn-drop"><span>&minus;55</span></div>
+          <div class="fn-row">
+            <span class="fn-stage">Retained</span>
+            <span class="fn-track"><i style="width:49.2%;background:#02551d"></i></span>
+            <span class="fn-val">181</span>
+            <span class="fn-tip" role="tooltip">Retained &middot; 181 of 368 (49%) &mdash; still engaged at 90 days</span>
           </div>
         </div>
-      </div>
+        <div class="fn-foot"><b>78%</b> of invitations reached a first session. Amber marks where people fell away.</div>
+      </figure>
     </div>
   </section>
 
@@ -246,7 +273,6 @@
     <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:26px">
       <span class="eyebrow">Customer stories</span>
       <h2 class="big" style="flex:1;min-width:240px">Trusted By People</h2>
-      <a class="chip" href="#demo">Explore all ↗</a>
     </div>
     <div class="tcar" data-carousel>
       <div class="ttrack">
@@ -301,12 +327,12 @@
 
   <!-- ================= final CTA + mosaic ================= -->
   <section class="section" id="demo">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center" class="reveal">
+    <div class="duo duo-36" class="reveal">
       <h2 style="font-size:clamp(28px,4.4vw,52px)">Find out what your wellbeing budget actually bought — <span class="hl">ElevatedHere</span>.</h2>
       <div>
         <p class="muted">A 30-minute walkthrough using your own numbers. No commitment, and no data leaves your side of the table.</p>
         <div class="hero-actions" style="margin-top:22px">
-          <a class="btn btn-dark" href="#">Book a demo <span class="cap">↗</span></a>
+          <a class="btn btn-dark" href="#demo">Book a demo <span class="cap">↗</span></a>
           <a class="btn btn-light" href="pricing.html">See pricing <span class="cap">↗</span></a>
         </div>
       </div>
@@ -331,21 +357,15 @@
         <p>Sponsored wellbeing infrastructure &mdash; funding, delivery and proof, with privacy held at the centre.</p>
       </div>
       <div><h4>Product</h4><a href="partner-organisations.html">Partner Organisations</a><a href="beneficiaries.html">Beneficiaries</a><a href="providers.html">Service Providers</a><a href="pricing.html">Pricing</a></div>
-      <div><h4>Company</h4><a href="index.html">Home</a><a href="#">About</a><a href="#">Careers</a><a href="faq.html">FAQ</a></div>
-      <div><h4>Legal</h4><a href="#">Privacy policy</a><a href="#">Data processing</a><a href="#">NDPR &amp; GDPR</a><a href="#">Terms</a></div>
+      <div><h4>Company</h4><a href="index.html">Home</a><a href="faq.html">FAQ</a></div>
+      
     </div>
     <div class="foot-bot">
       <div>
         <div>ElevatedHere HQ, Victoria Island, Lagos, Nigeria.</div>
         <div style="margin-top:6px">&copy; 2026 ElevatedHere. All rights reserved.</div>
       </div>
-      <div class="socials">
-        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.82-2.05 3.75-2.05C20.4 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.3-2-3.3s-2.3 1.57-2.3 3.2V21H9z"/></svg></a>
-        <a href="#" aria-label="X"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M18.9 2H22l-7 8 8.2 12h-6.4l-5-7.3L6 22H2.9l7.5-8.6L2.5 2h6.6l4.5 6.6zm-1.1 18h1.8L7.3 3.9H5.4z"/></svg></a>
-        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg></a>
-        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
       </div>
-    </div>
   </div>
   <div class="foot-mark" aria-hidden="true">ElevatedHere</div>
 </footer>

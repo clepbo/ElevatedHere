@@ -5,9 +5,9 @@ multi-channel, multi-currency social impact and wellness aggregator.
 
 > **Empowering Lives, Anytime, Anywhere.**
 
-Certified professionals across eight dimensions of wellbeing — mental health, legal & human rights,
-career & business, personal development, financial literacy, social & relational, physical and
-spiritual — serving individuals (B2C), corporations (B2B) and government/NGOs (B2G). A session can
+Certified professionals across seven dimensions of wellbeing — mental health, legal & human rights,
+career & business, personal development, financial literacy, social & relational and physical
+— serving individuals (B2C), corporations (B2B) and government/NGOs (B2G). A session can
 be paid for by the person, an employer, a programme, or an insurer.
 
 **Live site:** https://clepbo.github.io/ElevatedHere/ *(enable Pages — see below)*
@@ -94,14 +94,15 @@ All of it is disabled under `prefers-reduced-motion`.
 
 ## Before this goes public
 
-1. **Pricing is invented.** Structurally right, commercially made up — a warning banner says so on
-   the page. Replace the figures and remove the banner.
+1. **Pricing figures are still placeholders.** Structurally right, commercially made up. The
+   on-page warning banner has been removed at the owner's request, so nothing on the site flags
+   this any more — replace the numbers before the page goes near a customer.
 2. **Testimonials are illustrative**, written to be plausible. Replace or remove.
 3. **Photography is in place** — 17 commissioned images in `assets/img/`, optimised to WebP
    (676KB for the set). [`docs/image-brief.md`](docs/image-brief.md) holds the prompts behind them.
 4. **Statistics** come from the design data, not audited figures. Confirm before claiming publicly.
-5. **The PRD says "seven dimensions" then lists eight.** The site uses the eight that are listed.
-   Confirm which is right.
+5. **Seven dimensions, not eight.** Spiritual wellness is listed in the PRD but is not offered;
+   the site covers the other seven. The PRD should be corrected to match.
 6. **Several PRD areas are not on the site yet:** peer-support community, events, the AI wellness
    buddy and AI matching, CE courses, the insurance claims flow, the investor/courses page, and
    language/currency switching beyond the strings in the footer.

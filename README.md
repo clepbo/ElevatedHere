@@ -59,10 +59,14 @@ Full reference in [`docs/design-system.md`](docs/design-system.md).
 
 ## Motion
 
-Every entrance animation is **two-way** — it plays on the way down and reverses on the way back up.
-Counters reset and re-run; the word-by-word highlight is scroll-linked in both directions.
+Scroll is smoothed with a per-frame lerp (alpha 0.08 at 60fps), and entrance animations are
+**scrubbed** rather than toggled — progress is a continuous function of scroll position, so
+scrolling back up reverses everything for free. Counters reset and re-run.
 
-- Preloader with a scrambling word, on every load (`?nopre` skips it)
+There is no loading screen. A full-screen intro competes with image decode for the main thread on
+exactly the frames it needs to be smooth, so the hero carries the entrance instead: three headline
+lines rising 80ms apart, then the supporting rows.
+
 - Twin hero photo columns scrolling in opposite directions, pausing on hover
 - Word-by-word statement reveal
 - Words parting to admit a photo card

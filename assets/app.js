@@ -10,9 +10,11 @@
    2. Reveals are scrubbed, not toggled. Progress is a continuous function of
       scroll position, so reversing on the way back up is free rather than a
       second code path.
-   3. The preloader is a rotating word drum. The reference cycles whole words
-      around a tilted cylinder and decelerates onto the last one; v1 scrambled
-      characters, which is a different effect.
+   3. There is no loading screen. A full-screen intro competes with image
+      decode for the main thread on exactly the frames it needs to be smooth,
+      so it stuttered however it was authored. The hero now carries the
+      entrance instead — three headline lines 80ms apart, then the supporting
+      rows — which is what the reference does once its own intro clears.
 
    Deliberately NOT copied: the reference recording zooms its browser frame
    between sections. That is the screen recorder's camera, not the website —
@@ -73,73 +75,6 @@ function tick(now) {
 
   for (let i = 0; i < jobs.length; i++) jobs[i](smoothY);
   raf(tick);
-}
-
-/* ---------- preloader: word drum ----------
-   Words sit on the face of a cylinder. The drum spins and eases to a stop with
-   the last word upright. The tilt is what makes it read as a physical reel
-   rather than a list sliding past. */
-function bootPreloader(done) {
-  const pre = $('.pre'), mount = $('.pre-word');
-  if (!pre || !mount || REDUCED || location.search.includes('nopre')) {
-    if (pre) pre.classList.add('done');
-    document.body.classList.remove('loading');
-    done();
-    return;
-  }
-
-  const words = (mount.dataset.words || 'CARE,OUTCOMES,DIGNITY,PROOF,ACCOUNTABILITY')
-    .split(',').map((w) => w.trim()).filter(Boolean);
-
-  mount.textContent = '';
-  mount.classList.add('pre-reel');
-  const inner = document.createElement('div');
-  inner.className = 'pre-reel-inner';
-  mount.append(inner);
-
-  const step = 360 / words.length;
-  const faces = words.map((w, i) => {
-    const d = document.createElement('div');
-    d.className = 'pre-w';
-    d.textContent = w;
-    inner.append(d);
-    return { el: d, angle: i * step };
-  });
-
-  // Radius that puts consecutive faces exactly one line-height apart.
-  function layout() {
-    const h = mount.getBoundingClientRect().height || 72;
-    const r = ((h / 2) / Math.tan(Math.PI / words.length)) * 0.8;   // 0.8 overlaps the faces, as the reference does
-    faces.forEach((f) => {
-      f.el.style.transform = 'rotateX(' + -f.angle + 'deg) translateZ(' + r + 'px)';
-    });
-  }
-  layout();
-  addEventListener('resize', layout, { passive: true });
-
-  let finished = false;
-  const finish = () => {
-    if (finished) return;
-    finished = true;
-    pre.classList.add('done');
-    document.body.classList.remove('loading');
-    done();
-  };
-  setTimeout(finish, 6000);                  // failsafe if rAF is throttled
-
-  // Two full turns plus the distance to the last face, eased hard so it
-  // decelerates onto the final word rather than stopping dead.
-  const total = step * (words.length * 2 + words.length - 1);
-  const SPIN = 2400, HOLD = 520;
-  const t0 = performance.now();
-
-  (function spin(now) {
-    const p = clamp((now - t0) / SPIN, 0, 1);
-    const e = 1 - Math.pow(1 - p, 4);        // quartic ease-out
-    inner.style.transform = 'rotateX(' + (total * e) + 'deg)';
-    if (p < 1) raf(spin);
-    else setTimeout(finish, HOLD);
-  })(performance.now());
 }
 
 /* ---------- nav ---------- */
@@ -369,9 +304,18 @@ if (location.search.includes('mdebug')) {
   };
 }
 
-document.body.classList.add('loading');
-bootPreloader(() => {
-  document.documentElement.classList.add('ready');
-  measure();
-});
 raf(tick);
+
+/* The entrance waits for the webfont so a masked line-rise cannot reflow
+   mid-animation, but never longer than 700ms — a slow font or image must not
+   hold the hero back. */
+let started = false;
+function start() {
+  if (started) return;
+  started = true;
+  measure();
+  document.documentElement.classList.add('ready');
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
+addEventListener('load', start);
+setTimeout(start, 700);

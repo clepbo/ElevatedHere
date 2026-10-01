@@ -21,6 +21,7 @@ assets/styles.css           Design tokens + home-page sections
 assets/components.css       Shared components for inner pages + responsive rules
 assets/app.js               Motion engine
 assets/logo-*.png           Brand marks (dark and light)
+assets/img/*.webp           Photography (17 images)
 
 docs/design-system.md       Tokens, type scale, components, chart construction, copy rules
 docs/decisions.md           Product and design decisions, with reasoning
@@ -61,7 +62,7 @@ Full reference in [`docs/design-system.md`](docs/design-system.md).
 Every entrance animation is **two-way** — it plays on the way down and reverses on the way back up.
 Counters reset and re-run; the word-by-word highlight is scroll-linked in both directions.
 
-- Preloader with a scrambling word (once per session; `?nopre` skips it)
+- Preloader with a scrambling word, on every load (`?nopre` skips it)
 - Twin hero photo columns scrolling in opposite directions, pausing on hover
 - Word-by-word statement reveal
 - Words parting to admit a photo card
@@ -76,7 +77,7 @@ All of it is disabled under `prefers-reduced-motion`.
 1. **Pricing is invented.** Structurally right, commercially made up — a warning banner says so on
    the page. Replace the figures and remove the banner.
 2. **Testimonials are illustrative**, written to be plausible. Replace or remove.
-3. **Photography is placeholder** (Unsplash, hotlinked, credited in the footer).
-   [`docs/image-brief.md`](docs/image-brief.md) has prompts for the 17 images that should replace it.
+3. **Photography is in place** — 17 commissioned images in `assets/img/`, optimised to WebP
+   (676KB for the set). [`docs/image-brief.md`](docs/image-brief.md) holds the prompts behind them.
 4. **Statistics** come from the design data, not audited figures. Confirm before claiming publicly.
 5. Links marked `href="#"` — About, Careers, Contact, legal pages — need real destinations.

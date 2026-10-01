@@ -11,7 +11,7 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 /* ---------- preloader ---------- */
 function bootPreloader(done) {
   const pre = $('.pre'), word = $('.pre-word');
-  const skip = !pre || !word || REDUCED || location.search.includes('nopre') || sessionStorage.getItem('eh-seen');
+  const skip = !pre || !word || REDUCED || location.search.includes('nopre');
   if (skip) {
     if (pre) pre.classList.add('done');
     document.body.classList.remove('loading');
@@ -22,17 +22,16 @@ function bootPreloader(done) {
   const finish = () => {
     if (finished) return;
     finished = true;
-    sessionStorage.setItem('eh-seen', '1');   // only greet once per session
     pre.classList.add('done');
     document.body.classList.remove('loading');
     done();
   };
-  setTimeout(finish, 2600);                    // failsafe if rAF is throttled
+  setTimeout(finish, 5200);                    // failsafe if rAF is throttled
 
   const target = word.dataset.word || 'PROOF';
   const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&*+=<>';
   let frame = 0;
-  const per = 3, total = target.length * per + 18;
+  const per = 7, total = target.length * per + 46;   // slower decode, then a beat to read it
   (function tick() {
     let out = '';
     for (let i = 0; i < target.length; i++) {
@@ -42,7 +41,7 @@ function bootPreloader(done) {
     }
     word.textContent = out;
     if (++frame < total) raf(tick);
-    else setTimeout(finish, 380);
+    else setTimeout(finish, 640);
   })();
 }
 

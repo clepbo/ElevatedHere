@@ -1,23 +1,122 @@
-/* ElevatedHere — motion engine
-   Every entrance animation is two-way: it plays on the way down and reverses
-   on the way back up. Vanilla, IO-driven, rAF-batched, fully disabled under
-   prefers-reduced-motion. */
+/* ElevatedHere — motion engine v2
+
+   Rebuilt against frame-by-frame measurements of the reference recording
+   (1156 frames @ 30fps). Three things changed from v1:
+
+   1. Scroll is smoothed. Sampling a heading's reveal every 33ms gave a
+      decelerating curve that fits 1 - e^(-5t) to within measurement noise —
+      the signature of a per-frame lerp, not a CSS transition. k = 5/s is
+      alpha = 1 - e^(-5/60) = 0.08 at 60fps.
+   2. Reveals are scrubbed, not toggled. Progress is a continuous function of
+      scroll position, so reversing on the way back up is free rather than a
+      second code path.
+   3. The preloader is a rotating word drum. The reference cycles whole words
+      around a tilted cylinder and decelerates onto the last one; v1 scrambled
+      characters, which is a different effect.
+
+   Deliberately NOT copied: the reference recording zooms its browser frame
+   between sections. That is the screen recorder's camera, not the website —
+   the rounded card and its shadow scale too. Reproducing it in CSS would make
+   the page lurch.
+
+   All of it is disabled under prefers-reduced-motion. */
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const raf = (f) => requestAnimationFrame(f);
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 
-/* ---------- preloader ---------- */
+/* ---------- smooth scroll ----------
+   The window scrolls natively — body carries the real content height — and the
+   content wrapper is translated to a lagging position. Keeping the native
+   scrollbar means keyboard, anchor links and find-in-page all still work.
+   Off for touch, which has its own momentum, and off under reduced motion. */
+const SMOOTH = !REDUCED && matchMedia('(pointer: fine)').matches;
+const DECAY = 5;                       // per second, measured off the reference
+
+let wrapper = null, smoothY = 0;
+
+function buildWrapper() {
+  const parts = [$('.wrap'), $('footer')].filter(Boolean);
+  if (!parts.length) return;
+  wrapper = document.createElement('div');
+  wrapper.className = 'smooth';
+  document.body.insertBefore(wrapper, parts[0]);
+  parts.forEach((n) => wrapper.appendChild(n));
+  document.documentElement.classList.add('has-smooth');
+  measure();
+}
+
+function measure() {
+  if (!wrapper) return;
+  document.body.style.height = Math.round(wrapper.scrollHeight) + 'px';
+}
+
+/* ---------- jobs ---------- */
+const jobs = [];
+let last = performance.now();
+
+function tick(now) {
+  const dt = Math.min((now - last) / 1000, 0.1);
+  last = now;
+
+  if (wrapper) {
+    const target = scrollY;
+    const a = 1 - Math.exp(-DECAY * dt);     // frame-rate independent lerp
+    smoothY += (target - smoothY) * a;
+    if (Math.abs(target - smoothY) < 0.05) smoothY = target;
+    wrapper.style.transform = 'translate3d(0,' + -smoothY.toFixed(2) + 'px,0)';
+  } else {
+    smoothY = scrollY;
+  }
+
+  for (let i = 0; i < jobs.length; i++) jobs[i](smoothY);
+  raf(tick);
+}
+
+/* ---------- preloader: word drum ----------
+   Words sit on the face of a cylinder. The drum spins and eases to a stop with
+   the last word upright. The tilt is what makes it read as a physical reel
+   rather than a list sliding past. */
 function bootPreloader(done) {
-  const pre = $('.pre'), word = $('.pre-word');
-  const skip = !pre || !word || REDUCED || location.search.includes('nopre');
-  if (skip) {
+  const pre = $('.pre'), mount = $('.pre-word');
+  if (!pre || !mount || REDUCED || location.search.includes('nopre')) {
     if (pre) pre.classList.add('done');
     document.body.classList.remove('loading');
     done();
     return;
   }
+
+  const words = (mount.dataset.words || 'CARE,OUTCOMES,DIGNITY,PROOF,ACCOUNTABILITY')
+    .split(',').map((w) => w.trim()).filter(Boolean);
+
+  mount.textContent = '';
+  mount.classList.add('pre-reel');
+  const inner = document.createElement('div');
+  inner.className = 'pre-reel-inner';
+  mount.append(inner);
+
+  const step = 360 / words.length;
+  const faces = words.map((w, i) => {
+    const d = document.createElement('div');
+    d.className = 'pre-w';
+    d.textContent = w;
+    inner.append(d);
+    return { el: d, angle: i * step };
+  });
+
+  // Radius that puts consecutive faces exactly one line-height apart.
+  function layout() {
+    const h = mount.getBoundingClientRect().height || 72;
+    const r = ((h / 2) / Math.tan(Math.PI / words.length)) * 0.8;   // 0.8 overlaps the faces, as the reference does
+    faces.forEach((f) => {
+      f.el.style.transform = 'rotateX(' + -f.angle + 'deg) translateZ(' + r + 'px)';
+    });
+  }
+  layout();
+  addEventListener('resize', layout, { passive: true });
+
   let finished = false;
   const finish = () => {
     if (finished) return;
@@ -26,35 +125,22 @@ function bootPreloader(done) {
     document.body.classList.remove('loading');
     done();
   };
-  setTimeout(finish, 5200);                    // failsafe if rAF is throttled
+  setTimeout(finish, 6000);                  // failsafe if rAF is throttled
 
-  const target = word.dataset.word || 'PROOF';
-  const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&*+=<>';
-  let frame = 0;
-  const per = 7, total = target.length * per + 46;   // slower decode, then a beat to read it
-  (function tick() {
-    let out = '';
-    for (let i = 0; i < target.length; i++) {
-      if (frame > i * per + per) out += target[i];
-      else if (target[i] === ' ') out += ' ';
-      else out += glyphs[(Math.random() * glyphs.length) | 0];
-    }
-    word.textContent = out;
-    if (++frame < total) raf(tick);
-    else setTimeout(finish, 640);
-  })();
-}
+  // Two full turns plus the distance to the last face, eased hard so it
+  // decelerates onto the final word rather than stopping dead.
+  const total = step * (words.length * 2 + words.length - 1);
+  const SPIN = 2400, HOLD = 520;
+  const t0 = performance.now();
 
-/* ---------- shared scroll loop ---------- */
-const jobs = [];
-let ticking = false;
-function onScroll() {
-  if (ticking) return;
-  ticking = true;
-  raf(() => { const y = scrollY; jobs.forEach((j) => j(y)); ticking = false; });
+  (function spin(now) {
+    const p = clamp((now - t0) / SPIN, 0, 1);
+    const e = 1 - Math.pow(1 - p, 4);        // quartic ease-out
+    inner.style.transform = 'rotateX(' + (total * e) + 'deg)';
+    if (p < 1) raf(spin);
+    else setTimeout(finish, HOLD);
+  })(performance.now());
 }
-addEventListener('scroll', onScroll, { passive: true });
-addEventListener('resize', onScroll, { passive: true });
 
 /* ---------- nav ---------- */
 const nav = $('.nav');
@@ -62,23 +148,19 @@ if (nav) {
   jobs.push((y) => nav.classList.toggle('scrolled', y > 10));
   const t = $('.nav-toggle', nav), l = $('.nav-links', nav);
   if (t && l) {
+    const shut = () => {
+      l.classList.remove('open');
+      t.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('nav-open');
+    };
     t.addEventListener('click', () => {
       const open = l.classList.toggle('open');
       t.setAttribute('aria-expanded', String(open));
       document.body.classList.toggle('nav-open', open);
     });
-    l.addEventListener('click', (e) => {
-      if (e.target.tagName !== 'A') return;
-      l.classList.remove('open');
-      t.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('nav-open');
-    });
+    l.addEventListener('click', (e) => { if (e.target.tagName === 'A') shut(); });
     addEventListener('keydown', (e) => {
-      if (e.key !== 'Escape' || !l.classList.contains('open')) return;
-      l.classList.remove('open');
-      t.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('nav-open');
-      t.focus();
+      if (e.key === 'Escape' && l.classList.contains('open')) { shut(); t.focus(); }
     });
   }
 }
@@ -86,38 +168,63 @@ if (nav) {
 /* ---------- scroll progress ---------- */
 const barEl = $('.progress i');
 if (barEl) jobs.push((y) => {
-  const max = document.documentElement.scrollHeight - innerHeight;
-  barEl.style.width = (max > 0 ? Math.min(y / max, 1) * 100 : 0) + '%';
+  const max = (wrapper ? wrapper.scrollHeight : document.documentElement.scrollHeight) - innerHeight;
+  barEl.style.width = (max > 0 ? clamp(y / max, 0, 1) : 0) * 100 + '%';
 });
 
-/* ---------- two-way reveals ----------
-   The observer toggles rather than unobserves, so scrolling back up plays
-   every entrance in reverse. Counters reset so they re-run on re-entry. */
+/* ---------- scrubbed reveals ----------
+   Progress runs 0 → 1 as the element crosses from 92% to 32% of the viewport.
+   Scrolling back up runs it 1 → 0 with no extra code, and the smoothed scroll
+   above is what gives the decelerating tail. */
 const ANIMATED = '.reveal, .stagger, .brow, .split, .cluster, .chartbox';
+const scrubbed = [];
 
-if (REDUCED || !('IntersectionObserver' in window)) {
-  $$(ANIMATED).forEach((el) => el.classList.add('in'));
-  $$('[data-count]').forEach(settle);
-} else {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      const el = e.target;
-      if (e.isIntersecting) {
-        el.classList.add('in');
-        $$('[data-count]', el).forEach(countUp);
-        if (el.matches('[data-count]')) countUp(el);
-      } else {
-        el.classList.remove('in');
-        $$('[data-count]', el).forEach(resetCount);
-        if (el.matches('[data-count]')) resetCount(el);
-      }
-    });
-  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.1 });
-  $$(ANIMATED).forEach((el) => io.observe(el));
-  // counters that sit outside an animated wrapper
-  $$('[data-count]').forEach((el) => { if (!el.closest(ANIMATED)) io.observe(el); });
+function collect() {
+  scrubbed.length = 0;
+  $$(ANIMATED).forEach((el) => {
+    el.classList.add('js-scrub');
+    const kids = el.classList.contains('stagger') ? [...el.children] : [];
+    scrubbed.push({ el, kids, counters: $$('[data-count]', el), lit: false });
+  });
+  $$('[data-count]').forEach((el) => {
+    if (!el.closest(ANIMATED)) scrubbed.push({ el, kids: [], counters: [el], lit: false, bare: true });
+  });
 }
 
+function applyScrub() {
+  const vh = innerHeight;
+  const start = vh * 0.92, end = vh * 0.32;
+  for (const s of scrubbed) {
+    const top = s.el.getBoundingClientRect().top;
+    const p = clamp((start - top) / (start - end), 0, 1);
+
+    if (!s.bare) {
+      if (s.kids.length) {
+        // Children trail each other by 9% of the window — the reference staggers
+        // hero lines about 100ms apart at a comparable scroll speed.
+        s.kids.forEach((k, i) => {
+          const kp = clamp((p - i * 0.09) / (1 - Math.min(0.72, s.kids.length * 0.09)), 0, 1);
+          k.style.opacity = kp;
+          k.style.transform = 'translate3d(0,' + ((1 - kp) * 26).toFixed(2) + 'px,0)';
+        });
+        s.el.style.opacity = '';
+        s.el.style.transform = '';
+      } else {
+        s.el.style.opacity = p;
+        s.el.style.transform = 'translate3d(' + (s.el.classList.contains('brow') ? (1 - p) * 48 : 0).toFixed(2) + 'px,'
+                             + ((1 - p) * 26).toFixed(2) + 'px,0)';
+      }
+      s.el.classList.toggle('in', p > 0.02);
+    }
+
+    if (s.counters.length) {
+      if (p > 0.35 && !s.lit) { s.lit = true; s.counters.forEach(countUp); }
+      else if (p < 0.05 && s.lit) { s.lit = false; s.counters.forEach(resetCount); }
+    }
+  }
+}
+
+/* ---------- counters ---------- */
 function settle(el) { el.textContent = el.dataset.count; }
 
 function resetCount(el) {
@@ -127,7 +234,7 @@ function resetCount(el) {
 }
 
 function countUp(el) {
-  if (el.dataset.zero === undefined) el.dataset.zero = el.textContent;  // remember the start state
+  if (el.dataset.zero === undefined) el.dataset.zero = el.textContent;
   if (el.dataset.running === '1') return;
   el.dataset.running = '1';
 
@@ -139,7 +246,7 @@ function countUp(el) {
   const pre = raw.slice(0, m.index), post = raw.slice(m.index + n.length);
   const t0 = performance.now(), dur = 1400;
   (function f(now) {
-    if (el.dataset.running !== '1') return;            // cancelled by scrolling away
+    if (el.dataset.running !== '1') return;
     const p = Math.min((now - t0) / dur, 1);
     let v = (target * (1 - Math.pow(1 - p, 3))).toFixed(dec);
     if (comma) v = Number(v).toLocaleString('en-US', { minimumFractionDigits: dec });
@@ -148,7 +255,7 @@ function countUp(el) {
   })(performance.now());
 }
 
-/* ---------- word-by-word highlight (inherently two-way) ---------- */
+/* ---------- word-by-word highlight ---------- */
 $$('[data-words]').forEach((box) => {
   const text = box.textContent.trim();
   const green = (box.dataset.green || '').split('|').filter(Boolean);
@@ -164,17 +271,20 @@ $$('[data-words]').forEach((box) => {
   jobs.push(() => {
     const r = box.getBoundingClientRect();
     const start = innerHeight * 0.88, end = innerHeight * 0.34;
-    const p = Math.min(Math.max((start - r.top) / (start - end), 0), 1);
+    const p = clamp((start - r.top) / (start - end), 0, 1);
     const upto = Math.round(p * words.length);
     words.forEach((w, i) => w.classList.toggle('on', i < upto));
   });
 });
 
-/* ---------- testimonial carousel ---------- */
+/* ---------- testimonial carousel ----------
+   The reference cross-fades with a scale rather than sliding sideways: at the
+   midpoint of a change both cards are visible, overlaid and faint. */
 $$('[data-carousel]').forEach((car) => {
   const track = $('.ttrack', car), slides = $$('.tslide', track);
   const dots = $('.tdots', car.parentElement) || $('.tdots', car);
   let i = 0, timer;
+  track.classList.add('fade-mode');
   if (dots) slides.forEach((_, n) => {
     const b = document.createElement('button');
     b.type = 'button';
@@ -184,7 +294,7 @@ $$('[data-carousel]').forEach((car) => {
   });
   function go(n) {
     i = (n + slides.length) % slides.length;
-    track.style.transform = 'translateX(' + (-i * 100) + '%)';
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
     if (dots) $$('button', dots).forEach((b, k) => b.classList.toggle('on', k === i));
   }
   function restart() { clearInterval(timer); if (!REDUCED) timer = setInterval(() => go(i + 1), 5200); }
@@ -202,15 +312,11 @@ $$('.faq-item').forEach((item) => {
     const open = item.classList.toggle('open');
     q.setAttribute('aria-expanded', String(open));
     a.style.maxHeight = open ? a.scrollHeight + 'px' : '0px';
+    measure();
   });
 });
-let rt;
-addEventListener('resize', () => {
-  clearTimeout(rt);
-  rt = setTimeout(() => $$('.faq-item.open .faq-a').forEach((a) => { a.style.maxHeight = a.scrollHeight + 'px'; }), 150);
-});
 
-/* ---------- magnetic buttons (pointer devices only) ---------- */
+/* ---------- magnetic buttons ---------- */
 if (!REDUCED && matchMedia('(pointer: fine)').matches) {
   $$('.btn').forEach((b) => {
     b.addEventListener('mousemove', (e) => {
@@ -222,13 +328,50 @@ if (!REDUCED && matchMedia('(pointer: fine)').matches) {
   });
 }
 
-/* ---------- seamless marquees ---------- */
+/* ---------- marquees ---------- */
 $$('.ticker-track, .col').forEach((t) => { t.innerHTML += t.innerHTML; });
 
 /* ---------- go ---------- */
+if (SMOOTH) buildWrapper();
+collect();
+
+if (REDUCED) {
+  $$(ANIMATED).forEach((el) => el.classList.add('in'));
+  $$('[data-count]').forEach(settle);
+} else {
+  jobs.push(applyScrub);
+}
+
+let rt;
+addEventListener('resize', () => {
+  clearTimeout(rt);
+  rt = setTimeout(() => {
+    measure();
+    $$('.faq-item.open .faq-a').forEach((a) => { a.style.maxHeight = a.scrollHeight + 'px'; });
+  }, 150);
+}, { passive: true });
+
+addEventListener('load', measure);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+
+/* Headless browsers throttle rAF too hard for the lerp to converge, so the
+   engine exposes a way to place the scroll instantly for verification.
+   Opt-in via ?mdebug — it costs nothing on a normal visit. */
+if (location.search.includes('mdebug')) {
+  window.__motion = {
+    jump(y) {
+      smoothY = y;
+      if (wrapper) wrapper.style.transform = 'translate3d(0,' + -y + 'px,0)';
+      jobs.forEach((j) => j(y));
+    },
+    get y() { return smoothY; },
+    get count() { return scrubbed.length; }
+  };
+}
+
 document.body.classList.add('loading');
 bootPreloader(() => {
   document.documentElement.classList.add('ready');
-  onScroll();
+  measure();
 });
-onScroll();
+raf(tick);

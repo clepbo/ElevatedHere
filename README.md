@@ -34,6 +34,7 @@ docs/design-system.md       Tokens, type scale, components, chart construction, 
 docs/decisions.md           Product and design decisions, with reasoning
 docs/screen-inventory.md    All 153 product screens by role
 docs/image-brief.md         Prompts for the photography still to be produced
+docs/new-brand-prompt.md    Reusable prompt for rebuilding this template for another brand
 ```
 
 No build step, no dependencies. Open `index.html` directly, or serve the folder.

@@ -35,6 +35,7 @@ docs/decisions.md           Product and design decisions, with reasoning
 docs/screen-inventory.md    All 153 product screens by role
 docs/image-brief.md         Prompts for the photography still to be produced
 docs/new-brand-prompt.md    Reusable prompt for rebuilding this template for another brand
+docs/po-finance-qa-plan.md  PO Finance QA: model reconciliation, IA restructure, build plan
 ```
 
 No build step, no dependencies. Open `index.html` directly, or serve the folder.

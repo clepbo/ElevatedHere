@@ -286,3 +286,65 @@ the product owner". Designing them blind guarantees rework.
 My proposal: design 1–2 and 10 first since they gate the most, assume the Concept Note's phasing
 (wallet first) for everything else, and mark seats/invoicing screens as Phase 2 rather than omitting
 them.
+
+---
+
+## 7. Implementation log
+
+Figma file `1gK0GIsSnf3Efu2yXXpbrR`, page **Partner-Organizations**. 189 frames.
+
+### Decisions taken (were §6 open questions)
+
+| # | Decision | Rationale |
+|---|---|---|
+| 1 | **Phase 1 = prepaid wallet.** Invoicing and seats designed, marked Phase 2 | Concept Note §6: the wallet, escrow and virtual-account rails already exist |
+| 2 | **Paystack + bank transfer**, Stripe for international | Both in the PRD stack; Paystack is the Africa-first default |
+| 3 | **EH is the accounting system of record** | QA p.61 states the intent, so the ledger and chart of accounts get designed properly |
+| 4 | **k = 5** for aggregate reporting | Matches the "cohorts of five or more" already used across this file |
+
+### IA restructure — complete
+
+- `Nav-CohortsSegments` removed from the sidebar on **128** frames; `Nav-ProgramsProjects` → `Nav-Programs`, relabelled **Programs** on **136**.
+- Active state transferred on the **14** frames where Cohorts was the selected item.
+- **Analyst/Viewer** nav had Cohorts but no Programs entry — converted rather than removed, so analysts keep a route.
+- Cohorts tab added to the 4 existing tab rows; full three-tab row added to the 5 Cohorts screens.
+- **29** topbar titles corrected; **9** frames renamed to `PO — Programs · …`.
+- Flat-organisation empty state built for the Projects tab — Projects stay optional.
+
+### Finance — built
+
+**Stage 1**
+- Six-balance model on all three Overview screens. **Reserved and Pending Settlement did not previously exist.** Reconciliation stated on screen: `Position = Available + Allocated + Committed + Reserved + Pending = ₦19,490,000 funded; Spent is a 30-day flow and is not part of the position.`
+- **Balance Breakdown · Available** — an 11-line waterfall from opening cash through credits, debits and earmarks, tying to the Overview's Money movement panel and position tiles.
+- **Escrow register** — held / awaiting delivery / release blocked / released, with release condition and expected release per engagement. Sums to the ₦940,000 Reserved balance.
+- **Financial audit trail** — actor, action, record, before → after, reference, across budgets, rules, approvals and adjustments.
+- Transaction statuses: the three missing ones (Reversed, Disputed, Reconciliation Required) added, and a **STATUS column added to the Admin-Manager and Finance-Billing tables, which had none**.
+- **Top-up outcome-unknown state** — the case the QA warns about, where the gateway has not returned a result. Separates the provider's reported status from EH's interpretation; primary action is Check status, not Retry.
+- Approvals list gained programme and urgency.
+- Drill-down links added to the Overview position panel.
+
+**Stage 2**
+- **Budget lifecycle STATE** added as a column distinct from HEALTH — Draft, Pending approval, Active, Near limit, Exhausted, Closed — with two rows added to show the pre-active stages. "Closed" was previously sitting in the FORECAST column, conflating state with forecast.
+- **Three distinct budget actions** — Request additional funds / Reallocate existing funds / Change approved cap — each stating its effect on Available before submission.
+
+**Stage 3**
+- Invoice table gained **PAID** and **OUTSTANDING** columns and the fuller lifecycle: Paid, Pending payment, Partially paid, Disputed, Overdue, Draft. Only Paid and Due existed before.
+- **Financial Reports** tab added to all 21 Finance screens, with a report catalogue screen built behind it so the tab is not a dead end.
+
+### Defects found and fixed in passing
+
+- Programs screen read *"outcome targets, no budget of their own"* directly under a "Budget committed ₦18.7M" KPI — the contradiction QA item 6 raises.
+- A second instance of the same class on the Overview: a Q3 budget bar against a wallet position with nothing saying they are different axes.
+- Duplicate "Overview" tab on `Financials · Transactions (Admin-Manager)`.
+- Five screens highlighting the wrong sidebar item, including all three Finance Overviews highlighting Overview.
+
+### Verified
+
+- Nav active state: **138 screens correct, 0 real mismatches** (the 11 flagged are heuristic false positives — role suffixes such as "Finance-Billing" matching `/Financ/`).
+- Every new screen screenshotted and read back; clone artefacts corrected (stale avatars, inherited failure copy, wrong semantic colours).
+
+### Left open deliberately
+
+- **Adjust Allowance Cap** (×3) highlights Beneficiaries and **Adjust Cohort Budget** (×2) highlights Programs. Both are plausibly entered from there, so this is a product decision rather than a defect.
+- Sample data across connected Finance screens still needs a full consistency pass now the balance model has changed.
+- Not yet built: funding restrictions display, budget change history, allowance exception workflow, reconciliation exceptions detail, FX architecture, cost-per-outcome methodology panels, empty/loading/error state sets, and the Stage 6 handoff artifacts.

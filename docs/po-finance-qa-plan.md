@@ -348,3 +348,50 @@ Figma file `1gK0GIsSnf3Efu2yXXpbrR`, page **Partner-Organizations**. 189 frames.
 - **Adjust Allowance Cap** (×3) highlights Beneficiaries and **Adjust Cohort Budget** (×2) highlights Programs. Both are plausibly entered from there, so this is a product decision rather than a defect.
 - Sample data across connected Finance screens still needs a full consistency pass now the balance model has changed.
 - Not yet built: funding restrictions display, budget change history, allowance exception workflow, reconciliation exceptions detail, FX architecture, cost-per-outcome methodology panels, empty/loading/error state sets, and the Stage 6 handoff artifacts.
+
+### Completed after the first pass
+
+**Stage 2 finished** — funding restrictions panel (dimension, restricted to, set by, effect, type,
+with the rule that restricted grant money never counts toward Available); budget change history
+(when, actor, what changed, from → to, reference, status); and an **allowance exception register**
+with 14 active exceptions across individuals and cohorts, each with scope, change, reason,
+effective date and lapse behaviour.
+
+**Stage 3 finished** — reconciliation and FX audited and found sound. Convert Currency had a real
+arithmetic bug: converting ₦1,520,000 *out* of NGN showed the NGN balance **rising** to
+₦16,720,000. Corrected to ₦6,720,000, with a rate timestamp and a reporting-currency rule added.
+
+**Stage 4 finished** — **Cost per active beneficiary** added alongside cost per beneficiary, which
+the QA explicitly requires to be distinguished (₦59,950 against 213 active, versus ₦34,700 against
+368 enrolled). Methodology note rewritten to say the two must never be compared.
+
+**Stage 5 finished** — **PO — Financials · State Set**: 12 designed states covering six empty
+states (no funding sources, no budget pools, no transactions, no invoices, no reports, nothing
+awaiting approval) and six system states (loading, validation failure, session expiry, gateway
+unreachable, permission denied, export failed). Each states what happened, what it means for the
+money, and gives exactly one next action.
+
+**Stage 6 finished** — `docs/po-finance-handoff.md` carries the Finance sitemap, eight end-to-end
+flows, the screen-state inventory, the financial consistency review and the permissions/privacy
+review.
+
+### Sample-data consistency pass — complete
+
+Governing identity now holds across every connected screen:
+
+```
+Available 8,240,000 + Allocated 8,400,000 + Committed 1,600,000
+        + Reserved 940,000 + Pending 310,000 = 19,490,000
+```
+
+Three further contradictions were found and corrected during the pass:
+
+1. **Wallet & Funding** split summed to ₦18,240,000 against a ₦19,490,000 position — it had no
+   Reserved or Pending tile and folded escrow into Committed. Now seven tiles summing exactly to
+   ₦19,490,000, with the footer arithmetic rewritten to match.
+2. **Provider Payouts** reported ₦1,600,000 "still in escrow" for the same 38 engagements the Escrow
+   register showed at ₦940,000 — it was labelling Committed as escrow.
+3. **Convert Currency** balance-after bug described above.
+
+Verified: 11 new frames, no overlaps; nav active state correct on 138 screens with no real
+mismatches.

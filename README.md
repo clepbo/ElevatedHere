@@ -36,6 +36,7 @@ docs/screen-inventory.md    All 153 product screens by role
 docs/image-brief.md         Prompts for the photography still to be produced
 docs/new-brand-prompt.md    Reusable prompt for rebuilding this template for another brand
 docs/po-finance-qa-plan.md  PO Finance QA: model reconciliation, IA restructure, build plan
+docs/po-finance-handoff.md  PO Finance Phase 1 handoff: sitemap, flows, states, reviews
 ```
 
 No build step, no dependencies. Open `index.html` directly, or serve the folder.

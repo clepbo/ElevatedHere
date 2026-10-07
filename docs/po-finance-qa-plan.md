@@ -395,3 +395,59 @@ Three further contradictions were found and corrected during the pass:
 
 Verified: 11 new frames, no overlaps; nav active state correct on 138 screens with no real
 mismatches.
+
+---
+
+## 8. Programs / Projects / Cohorts QA (pp. 1-36)
+
+The other half of the same document: ~60 tasks across P0/P1/P2. The reviewer's recommended budget
+model on p.17 matches what was already built for Finance — Program = ceiling/envelope, Project =
+executable budget, Cohort = optional allocation, Transaction = actual movement — so nothing had to
+be reworked.
+
+### P0 — all 14 complete
+
+| Task | What was done |
+|---|---|
+| Resolve Program/Project model | Applied across every screen; Create Program no longer claims programmes hold no budget |
+| One canonical data model | 4 programmes, spends summing to ₦12.78M against an ₦18.67M envelope, 90 verified outcomes |
+| Fix inconsistent sample data | KPI said 3 active programmes, the table listed 2, the progress panel 3. Now 4 everywhere |
+| Separate lifecycle vs health | LIFECYCLE and HEALTH are separate columns on projects; Program Detail shows "Behind plan" with the rule stated |
+| Redesign Programs landing | Portfolio health strip → needs review → charts → table, as the reviewer sketched |
+| Redesign Projects landing | Health, parent programme and lifecycle on every row; action-identifiable at a glance |
+| Explanatory tab copy | Added to all 11 Programs/Projects/Cohorts frames |
+| Fix misleading health state | **QA item 26**: "On pace" sat above 91% consumed, ₦0.21M left, 11 days to run. Now "At risk · near budget limit" on all four frames carrying it |
+| Make warnings actionable | Observation → Evidence → Action, with Adjust budget / Cap enrolment / Review spend beside the warning |
+| Engagement funnel interactive | Every stage drills in and names its drop-off; an action queue ranks the three recovery opportunities |
+| Connect program → project | Linked projects carry allocation, spend and outcome contribution |
+| Connect project → cohort | Project headers name programme and cohort; the view toggle gained Cohorts |
+| Connect finance | "Open budget" on Program Detail |
+| Connect Reports & ROI | "View Impact Report" and "Export M&E Report" |
+
+### P1 — done
+
+Outcome target as Baseline 62 → Current 69 → Target 74 with progress stated as 7 of 12 points
+gained; measurement source named (WHO-5); programme owner and dates; Create Project gained a parent
+programme field and a live allocation preview ("₦4.00M of the ₦12.37M envelope still unallocated");
+charts carry period, definition and source; portfolio and project filters plus saved views; audit
+visibility ("Recent changes") on Program and Project Detail; privacy tier indicators (Aggregate /
+Operational / Consent required) on six detail screens; provider rows deepened to sessions, active
+beneficiaries, capacity and spend; cohort rows deepened to enrolled, activated, utilisation,
+outcomes and spend.
+
+### P2 — done
+
+Outcome contribution by project (42% / 31% / 27%); contextual expansion triggers on both landings,
+written as the reviewer asked — behaviour-triggered, not "Upgrade Now": *"Q3 Wellness Access has 4
+places left of 90"*, *"Three programmes now report separately"*.
+
+### Not done
+
+- Project dashboard is correct but not re-grouped under labelled **Outcome / Delivery / Finance**
+  headings — the content is all present, the sectioning is not.
+- Report configuration screen (period, programme, project, cohort, metric).
+- Cohort comparison, provider contribution and portfolio allocation (Program → Projects → Cohorts)
+  panels.
+- Per-role permission states on these screens beyond the role variants that already exist.
+
+Verified: 0 stale contradictions across the five restructured screens.

@@ -523,3 +523,135 @@ Bold. All 48 QA change notes travelled with their screens and stay pinned 56px a
 
 **Verified:** 277 top-level nodes, 246 positioned, **0 overlaps**, bounds 76,554 × 58,145,
 origin (−3500, 0).
+
+---
+
+## 10. Decisions taken, and the rest of the build
+
+The four questions in §6 were left open for sign-off. The product owner asked for a decision
+rather than a question, so each is now settled in the design and recorded here. Any of them can be
+overturned — what cannot stand is a screen built on an undefined term.
+
+### 10.1 Sample data — decision
+
+The reconciled dataset in §7 is now the **canonical design dataset v1**, and every screen is built
+on it. It is internally consistent and sums correctly at every level; it is not the organisation's
+real data and is not represented as such. Whoever owns the real figures replaces the values; the
+relationships must hold.
+
+The identities the file now maintains:
+
+```
+Portfolio   Available 8.24M + Allocated 8.40M + Committed 1.60M
+            + Reserved 0.94M + Pending 0.31M = 19.49M cash on hand
+
+Programme   envelope 12.37M = allocated to projects 8.37M + unallocated headroom 4.00M
+            projects 7.00 + 0.90 + 0.47 = 8.37M        spent 6.37 + 0.62 + 0.31 = 7.30M
+
+Project     Q3 Wellness Access 7.00M allocated, 6.37M spent, 91% consumed
+            cohorts 2.40 + 2.10 + 1.60 + 0.90 = 7.00M  spent 2.31 + 1.98 + 1.42 + 0.66 = 6.37M
+            enrolled 30 + 28 + 24 + 4 = 86             activated 23 + 24 + 20 + 4 = 71
+            sessions 54 + 72 + 58 + 14 = 198
+
+Outcomes    project 38 verified of 71 activated     cost per outcome 6,370,000 / 38 = 167,600
+            programme 52 verified                   7,300,000 / 52 = 140,400
+            portfolio 90 verified                   12,780,000 / 90 = 142,000
+
+Providers   sessions 272, payouts 5.84M of the 7.30M programme spend
+            remaining 1.46M is seats, allowances and platform fees
+```
+
+### 10.2 ROI definition — decision
+
+**Phase 1 reports return in outcomes, not in naira.** A monetised figure is designed but withheld
+until the organisation supplies baselines, and the screen says so rather than showing a zero.
+
+| Term | Definition |
+|---|---|
+| Verified outcome | index score rose by at least one minimal important difference (**8 points**) between baseline and endpoint, **both measurements present** |
+| Outcome attainment | verified outcomes ÷ activated beneficiaries |
+| Cost per verified outcome | settled spend ÷ verified outcomes |
+| Outcome unknown | one measurement only — reported separately, **never counted as a failure** |
+| Absence recovered | Δ absence days × fully-loaded daily cost — *organisation HR, not supplied* |
+| Retention preserved | (baseline attrition − cohort attrition) × headcount × replacement cost — *not supplied* |
+| Monetised ROI | (absence recovered + retention preserved − spend) ÷ spend — **blocked** |
+
+Baseline is taken at enrolment, endpoint at session 6 or 90 days, whichever comes first. The index
+runs across **seven** dimensions; spiritual wellness is not assessed on this platform.
+
+### 10.3 Approval thresholds — decision
+
+The band is set by the amount **or** its share of the pool, whichever puts the request higher, and
+is fixed when the request is submitted.
+
+| Request | Threshold | Approver |
+|---|---|---|
+| Routine release | under ₦250,000 **and** ≤ 5% of pool | budget owner, auto-approved and logged |
+| Standard increase | ₦250,000 – ₦2,000,000 or ≤ 20% | Admin / Manager |
+| Material increase | over ₦2,000,000 or over 20% | Owner |
+| Major commitment | over ₦10,000,000 | Owner + second Owner, neither the requester |
+| Cap or billing change | any value | Owner |
+| Restricted funding move | any value | Owner, written reason required |
+
+Undecided after 2 business days → escalates to the Owner and shows as Overdue. Approving a cap
+change moves no money; it raises a ceiling.
+
+### 10.4 Partially-paid invoices and credit notes — decision
+
+**Both are in Phase 1.** A part-paid invoice keeps its outstanding balance and stays collectable.
+A credit note is always raised against an original invoice, carries a negative amount, and reduces
+the outstanding balance rather than erasing the record. `CR-0014` against `INV-0833` is on all three
+Invoices & Seats variants.
+
+---
+
+## 11. Build log — second pass
+
+### Project dashboard, regrouped
+
+`Project Detail` (Owner, Admin) is now **Outcome → Delivery → Finance → Governance**, each under a
+labelled rule. A **Project Outcome card** was added (baseline 58 → current 66 → target 70, 38
+verified outcomes, cost per verified outcome ₦167,600, with the definition printed beneath), and a
+**Finance KPI strip** separates cost metrics from delivery counts.
+
+**Defect found:** the Budget health bar was drawn **91 pixels** wide on a 1094px track for a figure
+of 91%. A scan of the whole file found this on those two frames only; both corrected to 996px and
+recoloured red to match the At risk chip.
+
+### Report configuration — new, 3 role variants
+
+`Reports & ROI · Configure Report` — period, scope, metrics, breakdown, privacy, with a live summary
+line. Scope cascades programme → project → cohort. Monetised return is absent from the metric list
+with the reason given.
+
+### Cohort comparison — new, 2 role variants
+
+`Programs · Cohort Comparison` — four cohorts of one project on one period. Rows reconcile to the
+project total. Frontline Ops reaches an outcome for ₦118,300 against ₦180,000 in Wellness Cohort B
+at the same attainment, and the panel says what to do about it.
+
+### Programme panels — added
+
+**Portfolio allocation** (programme → projects → cohorts, envelope vs cash stated explicitly) and
+**provider contribution** (7 providers, sessions, beneficiaries, verified outcomes, payout, cost per
+outcome, with one provider below threshold). `Program Detail` regrouped into the same four sections.
+
+### Permission states — new reference screen
+
+`Permission States (Reference)` — 16 capabilities × 5 roles as Full / View only / Blocked / Hidden,
+plus the four blocked patterns rendered: disabled with a reason, blocked with a request route,
+masked value, hidden capability.
+
+### Canvas
+
+Re-arranged role-first, module-second, now including every new screen.
+**305 nodes, 191 screens, 65 change notes, 0 overlaps**, bounds 76,554 × 73,775.
+**62 frames were clipping their content** and were resized to fit — `Balance Breakdown` was the
+worst at 1024px for 1331px of content.
+
+### Known cosmetic issue
+
+The Inter **₦** glyph draws its two bars slightly wide, so they overlap the first digit and read as
+a strikethrough. This affects every ₦ in the file equally, old and new, and is a font rendering
+artefact rather than a design error. Switching the display format to `NGN 12.37M` would remove it,
+at the cost of touching ~500 labels — not done without a decision.

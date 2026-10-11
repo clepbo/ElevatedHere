@@ -451,3 +451,75 @@ places left of 90"*, *"Three programmes now report separately"*.
 - Per-role permission states on these screens beyond the role variants that already exist.
 
 Verified: 0 stale contradictions across the five restructured screens.
+
+---
+
+## 9. Navigation rebuild and canvas re-grouping
+
+### 9.1 Collapsible side navigation
+
+The product owner asked for Projects and Cohorts to sit **under** Programs as a collapsible group,
+drawn with a chevron, and for the duplicated in-page tab rows to go.
+
+Applied to every screen that has a sidebar:
+
+| Parent | Children | Expands on |
+|---|---|---|
+| Beneficiaries | Directory · Engagement & Retention | any Beneficiaries screen |
+| Providers | Direct SP Panel · Marketplace | any Providers screen |
+| Programs | Projects · Cohorts | Programs, Program Detail, Project, Cohort, Create Program |
+| Financials | Overview · Wallet & Funding · Allowances & Budgets · Invoices & Seats · Transactions · Reports | any Finance screen |
+
+The chevron is a drawn vector, not a glyph — the `▾` character is absent from Inter and rendered as
+a dash. 16 × 16 frame, 1.6 stroke weight, round cap and join:
+
+```
+collapsed  M 6.2 3.6 L 10.6 8 L 6.2 12.4      (points right)
+expanded   M 3.6 6.2 L 8 10.6 L 12.4 6.2      (points down)
+```
+
+Chevron and icon colour follow the label colour on the same row, so an active parent gets a white
+chevron on the green pill rather than a green one that disappears into it.
+
+### 9.2 In-page tabs removed
+
+70 tab rows existed. **50 removed** — every row whose labels duplicated a sidebar entry (the 11
+Programs/Projects/Cohorts rows plus 39 across Beneficiaries, Providers and Financials). Navigation
+now has one home.
+
+**20 kept deliberately**, because they are not sidebar duplicates:
+
+- **Reports & ROI** — Level 1 Operational · Level 2 Engagement · Level 3 Outcome · Level 4 Impact &
+  ROI. This is the measurement ladder, not a set of pages.
+- **Settings** — Org Profile & Type · Team & Roles · Privacy & Consent · Audit Log.
+- **Allowances & Budgets** — Budgets · Allowances · Planning.
+
+### 9.3 Defects found during the pass
+
+1. `Nav-Overview`'s icon carried **white strokes** on a white sidebar — invisible on every screen
+   where Overview was not the active item. A stale active-state colour from an earlier clone.
+   **477 nav icons** recoloured to follow their label.
+2. The Programs chevron was green on the green active pill — invisible. Fixed by the same rule.
+3. 440 chevrons were top-aligned rather than optically centred in their 16px box.
+4. Three change notes still read "Moved under Programs as a tab"; corrected to "as a collapsible
+   sidebar sub-item".
+
+### 9.4 Canvas arrangement — by role, then by module
+
+Previously grouped by module only, in eight rows. Now grouped **role first, module second**:
+
+| Band | Screens | Modules present |
+|---|---|---|
+| Shared | 33 | Auth & Onboarding, Financials (state set) |
+| Owner | 81 | all eight |
+| Admin / Manager | 57 | Beneficiaries → Settings |
+| Finance / Billing | 13 | Financials, Reports & ROI |
+| Project Manager | 5 | Programs, Financials |
+| Analyst / Viewer | 8 | Overview, Reports & ROI |
+| Parked | 13 | 7 legacy Section bars, 6 loose images |
+
+Role labels sit at x = −3500 in 120px Inter Bold; module labels at x = −1060 in 56px Inter Semi
+Bold. All 48 QA change notes travelled with their screens and stay pinned 56px above them.
+
+**Verified:** 277 top-level nodes, 246 positioned, **0 overlaps**, bounds 76,554 × 58,145,
+origin (−3500, 0).

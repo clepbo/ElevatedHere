@@ -177,6 +177,17 @@ said*:
 - Export Report carries an explicit privacy scope step, and export activity is recorded.
 - Restricted grant funding is shown as restricted and never counts toward Available.
 
-**Still to confirm with the product owner**: approval thresholds by value, whether partially-paid
-invoices and credit notes are in Phase 1, and the ROI definition — an ROI view should not ship
-before what counts as a return is written down.
+**Decided** (see `po-finance-qa-plan.md` §10, overturnable but no longer blocking):
+
+- **Approval thresholds** — banded by value *or* share of pool, whichever is higher. Owner above
+  ₦2,000,000 or 20%; dual Owner approval above ₦10,000,000; any cap, billing or restricted-fund
+  change is Owner at any value. 2 business days, then escalation.
+- **Partially-paid invoices and credit notes** — both in Phase 1. A credit note always references
+  its original invoice and reduces the outstanding balance rather than erasing the record.
+- **ROI** — Phase 1 reports return in **outcomes, not naira**. A verified outcome is a rise of at
+  least one minimal important difference (8 points) on the seven-dimension index, with both
+  baseline and endpoint present. Monetised ROI is designed and **withheld** until the organisation
+  supplies absence and attrition baselines; the screen states this rather than showing a zero.
+- **Sample data** — the reconciled figures are the canonical design dataset v1. Internally
+  consistent at every level, not the organisation's real data. Replacing the values is expected;
+  the relationships must hold.

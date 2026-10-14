@@ -1,21 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Emit docs/po-qa-traceability.md from qa-matrix.json."""
+"""Emit docs/po-qa-traceability.md from qa-matrix.json, keeping the QA wording."""
 import json, io, os, collections
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 D = json.load(io.open(os.path.join(HERE, "qa-matrix.json"), encoding="utf-8"))
+ROLE = {"Owner": "Owner", "Admin-Manager": "Admin", "Finance-Billing": "Finance",
+        "Project Manager": "PM", "Analyst-Viewer": "Analyst", "Shared": "Shared"}
 
-GROUPS = [
-    ("Finance QA — Table 1: balance model and Finance Overview", "F1"),
-    ("Finance QA — Table 2: budgets, allowances, approvals", "F2"),
-    ("Finance QA — Table 3: invoices, seats, transactions, accounting", "F3"),
-    ("Finance QA — Table 4: reports, programme economics, ROI", "F4"),
-    ("Finance QA — Table 5: enterprise readiness, roles, states", "F5"),
-    ("Finance QA — Table 6: handoff and acceptance", "F6"),
-    ("Programs / Projects / Cohorts QA — P0", "P0"),
-    ("Programs / Projects / Cohorts QA — P1", "P1"),
-    ("Programs / Projects / Cohorts QA — P2", "P2"),
-]
 
 def role_of(name):
     for r in ("Owner", "Admin-Manager", "Finance-Billing", "Project Manager", "Analyst-Viewer"):
@@ -23,50 +14,72 @@ def role_of(name):
             return r
     return "Shared"
 
-def links_for(screens):
+
+def links(screens):
     if not screens:
-        return "_documentation deliverable — no screen_"
-    parts = []
+        return "_documentation deliverable_"
+    out = []
     for s in screens:
-        vs = s["variants"]
-        label = s["screen"].replace("PO - ", "").replace("PO-", "PO-")
-        tags = " ".join("[%s](%s)" % (role_of(v["name"]), v["url"]) for v in vs)
-        parts.append("**%s** %s" % (label, tags))
-    return "<br>".join(parts)
+        label = s["screen"][5:] if s["screen"].startswith("PO - ") else s["screen"]
+        tags = " ".join("[%s](%s)" % (ROLE[role_of(v["name"])], v["url"]) for v in s["variants"])
+        out.append("**%s** %s" % (label, tags))
+    return "<br>".join(out)
+
+
+def esc(s):
+    return (s or "").replace("|", "\\|")
+
 
 out = []
 w = out.append
+s = D["stats"]
 w("# PO QA — traceability matrix")
 w("")
-w("Every item raised in the two QA documents, the decision taken, and a direct link to each Figma")
-w("frame where it was resolved. Role labels after a screen name are links to that role's variant.")
+w("Every item from the two QA documents, **in the document's own words and order**, with what was")
+w("decided, what changed, and a direct link to each Figma frame where it was resolved. Role labels")
+w("after a screen name link to that role's variant.")
 w("")
 w("Figma file: [%s](%s) · page **Partner-Organizations**." % (D["file"]["name"], D["file"]["url"]))
 w("")
-s = D["stats"]
-w("**%d QA items** · %d screen references · **%d frame links** · %d decisions recorded · %d items awaiting your call."
+w("**%d QA items** · %d screen references · **%d frame links** · %d decisions · %d awaiting your call."
   % (s["items"], s["screenRefs"], s["frameLinks"], s["decisions"], s["open"]))
 w("")
-w("> The generated source of this table is `tools/qa_items.py` plus `tools/build_matrix.py`; re-run")
-w("> it against a fresh screen index if node IDs change.")
+w("> Requirement text is extracted verbatim from `PO - Finance QA.pdf` by `tools/parse_qa_pdf.py`.")
+w("> What changed and where it lives is in `tools/qa_map.py`. Neither restates the other.")
 w("")
 w("---")
 w("")
 
-by = collections.defaultdict(list)
+by = collections.OrderedDict()
 for it in D["items"]:
-    by[it["id"].split(".")[0]].append(it)
+    by.setdefault(it["table"], []).append(it)
 
-for title, key in GROUPS:
-    rows = by.get(key, [])
-    if not rows:
-        continue
-    w("## %s" % title)
+for table, rows in by.items():
+    w("## %s" % table)
     w("")
-    w("| # | What the QA asked for | Decision and what changed | Where it lives |")
-    w("|---|---|---|---|")
-    for it in rows:
-        w("| **%s** | %s | %s | %s |" % (it["id"], it["requirement"], it["change"], links_for(it["screens"])))
+    if rows[0]["group"] == "PROG":
+        w("Columns as the QA document has them: the problem it raises, why it says it matters, and its")
+        w("recommendation — then what was done.")
+        w("")
+        w("| # | Area / Screen | Brutal problem | Why it matters | Elite-level recommendation | What changed | Where it lives |")
+        w("|---|---|---|---|---|---|---|")
+        for it in rows:
+            w("| **%s** | %s | %s | %s | %s | %s | %s |" % (
+                it["id"], esc(it["ref"]), esc(it["requirement"]), esc(it.get("why", "")),
+                esc(it.get("recommendation", "")), esc(it["change"]), links(it["screens"])))
+    elif rows[0]["group"] == "PO":
+        w("| # | What was asked | What changed | Where it lives |")
+        w("|---|---|---|---|")
+        for it in rows:
+            w("| **%s** | %s | %s | %s |" % (it["id"], esc(it["requirement"]),
+                                             esc(it["change"]), links(it["screens"])))
+    else:
+        w("| Design Task | Exact Design Work Required | Acceptance Criteria / UX Outcome | What changed | Where it lives |")
+        w("|---|---|---|---|---|")
+        for it in rows:
+            w("| **%s** | %s | %s | %s | %s |" % (
+                esc(it["ref"]), esc(it["requirement"]), esc(it.get("accept", "")),
+                esc(it["change"]), links(it["screens"])))
     w("")
 
 w("---")
@@ -79,27 +92,26 @@ w("")
 w("| # | Decision | What was settled | Where it shows |")
 w("|---|---|---|---|")
 for d in D["decisions"]:
-    w("| **%s** | %s | %s | %s |" % (d["id"], d["title"], d["text"], links_for(d["screens"])))
-w("")
-w("---")
+    w("| **%s** | %s | %s | %s |" % (d["id"], esc(d["title"]), esc(d["text"]), links(d["screens"])))
 w("")
 w("## Still needs your call")
 w("")
 w("| # | Item | Detail | Status |")
 w("|---|---|---|---|")
 for o in D["open"]:
-    w("| **%s** | %s | %s | %s |" % (o["id"], o["title"], o["text"], o["status"]))
+    w("| **%s** | %s | %s | %s |" % (o["id"], esc(o["title"]), esc(o["text"]), o["status"]))
 w("")
 w("---")
 w("")
-w("## Coverage note")
+w("## Notes on the source")
 w("")
-w("150 of the 176 screens on the page are referenced above. The 26 that are not were outside the")
-w("scope of both QA documents — sign-up, sign-in, OTP, password reset, the beneficiary directory and")
-w("engagement screens, add-beneficiary, the provider panel and marketplace, and provider-engaged.")
-w("They were still changed by item **P0.15**, which rebuilt the side navigation on every frame that")
-w("has one; the links on that row are representative rather than exhaustive.")
-w("")
+w("- The review table is numbered **1–58** in the PDF, but **3, 33, 54 and 55 do not exist**:")
+w("  the numbering skips them, and row 3 contains only a repeated table header. 54 real items.")
+w("- Items **57 and 56 appear in that order** in the document; the order here matches the document.")
+w("- Two rows (**26** and **58**) sit on pages whose column grid cannot be recovered automatically")
+w("  and were transcribed by hand from the PDF text; this is marked in `parse_qa_pdf.py`.")
+w("- The two **PO** rows are the product owner's instructions from this engagement, which are not")
+w("  numbered in the QA document.")
 
 io.open(os.path.join(HERE, "..", "docs", "po-qa-traceability.md"), "w", encoding="utf-8").write("\n".join(out))
 print("wrote docs/po-qa-traceability.md", len("\n".join(out)), "chars")

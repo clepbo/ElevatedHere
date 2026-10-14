@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Resolve QA items to live Figma node links and emit matrix.json + the markdown table."""
+"""Join the verbatim QA items to what was built, and resolve live Figma links.
+
+    python build_matrix.py screens.json .
+
+`qa-source.json` holds the QA document's own wording (see parse_qa_pdf.py).
+`qa_map.py` holds what changed and where. Nothing restates a requirement.
+"""
 import json, re, sys, io, os, collections
 
 FILE_KEY = "1gK0GIsSnf3Efu2yXXpbrR"
@@ -8,14 +14,12 @@ ROLES = ("Owner", "Admin-Manager", "Finance-Billing", "Project Manager", "Analys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-import qa_items as Q
+import qa_map as M
 
 
 def norm(s):
-    """ASCII-fold, drop separators, collapse whitespace. Makes em-dash/middot names comparable."""
     s = "".join(c if ord(c) < 128 else " " for c in s)
-    s = s.replace("-", " ")
-    return re.sub(r"\s+", " ", s).strip().lower()
+    return re.sub(r"\s+", " ", s.replace("-", " ")).strip().lower()
 
 
 def strip_role(name):
@@ -28,9 +32,8 @@ def link(node_id):
 
 
 def load_screens(path):
-    rows = json.load(open(path))
     index = collections.defaultdict(list)
-    for node_id, name, x, y, w, h in rows:
+    for node_id, name, x, y, w, h in json.load(io.open(path, encoding="utf-8")):
         index[norm(strip_role(name))].append({"id": node_id, "name": name, "url": link(node_id)})
     for k in index:
         index[k].sort(key=lambda s: s["name"])
@@ -50,31 +53,62 @@ def resolve(index, wanted, missing):
 
 def main(screens_path, out_dir):
     index = load_screens(screens_path)
-    missing = []
-    items = []
-    for iid, src, req, change, screens in Q.ITEMS:
-        items.append({"id": iid, "source": src, "requirement": req,
-                      "change": change, "screens": resolve(index, screens, missing)})
+    src = json.load(io.open(os.path.join(HERE, "qa-source.json"), encoding="utf-8"))
+    missing, unmapped, items = [], [], []
+
+    for n, title, req, change, screens in M.EXTRA:
+        items.append({"id": n, "group": "PO", "table": title, "ref": "",
+                      "requirement": req, "change": change,
+                      "screens": resolve(index, screens, missing)})
+
+    for r in src["programs"]:
+        hit = M.PROGRAMS.get(r["n"])
+        if not hit:
+            unmapped.append("programs #%d" % r["n"])
+        req = r["problem"]
+        items.append({
+            "id": str(r["n"]), "group": "PROG",
+            "table": "Programs, Projects and Cohorts — review table",
+            "ref": r["area"], "requirement": req,
+            "good": r["good"], "why": r["why"], "recommendation": r["rec"],
+            "change": hit[0] if hit else "",
+            "screens": resolve(index, hit[1], missing) if hit else []})
+
+    for table, rows in src["finance"].items():
+        for r in rows:
+            hit = M.FINANCE.get(r["task"])
+            if not hit:
+                unmapped.append(r["task"])
+            items.append({
+                "id": r["task"], "group": "FIN", "table": table, "ref": r["task"],
+                "requirement": r["work"], "accept": r["accept"], "impact": r["impact"],
+                "change": hit[0] if hit else "",
+                "screens": resolve(index, hit[1], missing) if hit else []})
+
     decisions = [{"id": d[0], "title": d[1], "text": d[2],
-                  "screens": resolve(index, d[3], missing)} for d in Q.DECISIONS]
-    openq = [{"id": o[0], "title": o[1], "text": o[2], "status": o[3]} for o in Q.OPEN]
+                  "screens": resolve(index, d[3], missing)} for d in M.DECISIONS]
+    openq = [{"id": o[0], "title": o[1], "text": o[2], "status": o[3]} for o in M.OPEN]
 
     if missing:
-        print("UNRESOLVED SCREEN NAMES (%d):" % len(missing))
+        print("UNRESOLVED SCREEN NAMES (%d):" % len(set(missing)))
         for m in sorted(set(missing)):
             print("   ", m)
+    if unmapped:
+        print("QA ITEMS WITH NO MAPPING (%d):" % len(unmapped))
+        for u in unmapped:
+            print("   ", u)
 
-    linked = sum(len(i["screens"]) for i in items)
     frames = sum(len(s["variants"]) for i in items for s in i["screens"])
     data = {"file": {"key": FILE_KEY, "name": FILE_NAME,
                      "url": "https://www.figma.com/design/%s/%s?node-id=800001-227" % (FILE_KEY, FILE_NAME)},
             "items": items, "decisions": decisions, "open": openq,
-            "stats": {"items": len(items), "screenRefs": linked, "frameLinks": frames,
-                      "decisions": len(decisions), "open": len(openq)}}
+            "stats": {"items": len(items),
+                      "screenRefs": sum(len(i["screens"]) for i in items),
+                      "frameLinks": frames, "decisions": len(decisions), "open": len(openq)}}
     json.dump(data, io.open(os.path.join(out_dir, "qa-matrix.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
-    print("items %d / screen refs %d / frame links %d" % (len(items), linked, frames))
-    return data
+    print("items %d / screen refs %d / frame links %d"
+          % (len(items), data["stats"]["screenRefs"], frames))
 
 
 if __name__ == "__main__":

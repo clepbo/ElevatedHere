@@ -1,0 +1,1074 @@
+{
+ "programs": [
+  {
+   "n": 1,
+   "area": "Overall IA",
+   "good": "Programs and Projects are grouped under one parent",
+   "problem": "The concept is correct, but the distinction between them is not explained strongly enough",
+   "why": "NGO/program users may not know which object to create",
+   "rec": "Keep one parent menu: Programs & Projects. Within it use Programs / Projects tabs"
+  },
+  {
+   "n": 2,
+   "area": "Parent namin",
+   "good": "g \"Programs & Projects\" is understandable",
+   "problem": "Slightly operational rather than strategic",
+   "why": "International Development organizations think in programs interventions and portfolios",
+   "rec": "Keep the name for now; use explanatory, microcopy: \"Plan interventions, fund projects and track outcomes.\""
+  },
+  {
+   "n": 4,
+   "area": "Program definit ion",
+   "good": "Program has an outcome target and linked Project",
+   "problem": "Program is visually just anothers reporting container",
+   "why": "Strategic value i under-communic ated",
+   "rec": "s Treat Program as the strategic outcome layer"
+  },
+  {
+   "n": 5,
+   "area": "Project definition",
+   "good": "Project has manager, budget, providers and beneficiaries",
+   "problem": "Project appears primarily as a budget container",
+   "why": "Project should represent an executable intervention",
+   "rec": "Show objective, geography, timeline, cohort, providers, budget and outcomes"
+  },
+  {
+   "n": 6,
+   "area": "Program budget model",
+   "good": "Program detail shows combined budget",
+   "problem": "Contradicts Create Program statement that programs do not hold budget",
+   "why": "This is a major data-model problem",
+   "rec": "Program budget envelope/Container project allocations."
+  },
+  {
+   "n": 7,
+   "area": "Program creation",
+   "good": "Extremely simple",
+   "problem": "Too little information to establish a serious development program",
+   "why": "Missing owner, end date, reporting cadence, geography and measurement framework",
+   "rec": "Keep Phase 1 lightweight but progressively disclose these fields"
+  },
+  {
+   "n": 8,
+   "area": "Project creation",
+   "good": "Project name, budget, manager, privacy",
+   "problem": "Good minimum viable flow",
+   "why": "Missing dates, objective, geography, capacity and parent program",
+   "rec": "Add optional fields progressively rather than turning creation into an enterprise form"
+  },
+  {
+   "n": 9,
+   "area": "Intent-first principle",
+   "good": "User can immediately create",
+   "problem": "It starts with object creation rather than the user's objective",
+   "why": "\"Create program\" may not be the user's actual intent",
+   "rec": "Entry should ask: \"What are you trying to run?\" Program / Project / Manage existing"
+  },
+  {
+   "n": 10,
+   "area": "Create Program CTA",
+   "good": "Strong green CTA",
+   "problem": "No explanation of what happens next",
+   "why": "User may create an empty strategic object",
+   "rec": "Explain: \"Set the outcome, then connect projects and cohorts.\""
+  },
+  {
+   "n": 11,
+   "area": "Create Project CTA",
+   "good": "Very clear",
+   "problem": "Does not indicate whether project belongs to a program",
+   "why": "Users may create orphan projects unintentionally",
+   "rec": "Add optional Parent Program field with \"No program / Org-wide project\""
+  },
+  {
+   "n": 12,
+   "area": "Program portfolio dashboard",
+   "good": "Strong combination of budget and outcome information",
+   "problem": "Some visualizations are decorative rather than decision-oriented",
+   "why": "Executive users need decisions, not charts for their own sake",
+   "rec": "Every chart should answer a management question"
+  },
+  {
+   "n": 13,
+   "area": "Active progra KPI",
+   "good": "ms Good",
+   "problem": "\"Active programmes\" and program table count appear inconsistent i supplied screens",
+   "why": "Data inconsistency destroys trustn",
+   "rec": "Ensure KPI, table and underlying records always reconcile"
+  },
+  {
+   "n": 14,
+   "area": "Program enrolments",
+   "good": "Useful portf metric",
+   "problem": "olio Does not distinguish unique beneficiaries from total enrolments",
+   "why": "One beneficiary can join multipl programs",
+   "rec": "Show Uniquee beneficiaries + Program enrolments separately"
+  },
+  {
+   "n": 15,
+   "area": "Budget committed",
+   "good": "Strong metri",
+   "problem": "c It is unclear whether committed means allocated, reserved or spent",
+   "why": "Financial ambiguity",
+   "rec": "Define Allocated / Committed / Spent / Remaining. Does Committed mean \"Actual Cost\"? Is yes, default to \"Actual Cost\" terminology"
+  },
+  {
+   "n": 16,
+   "area": "Cost per outcome",
+   "good": "Excellent strategic metric",
+   "problem": "Outcome denominator is not explained",
+   "why": "Finance and M&E users need methodology",
+   "rec": "Add tooltip: formula, verified-outcome definition and reporting period"
+  },
+  {
+   "n": 17,
+   "area": "Portfolio donut",
+   "good": "Visually easy to understand",
+   "problem": "Budget allocation gets more visual attention than outcomes",
+   "why": "Can encourage spend-centric management",
+   "rec": "Pair allocation with outcome contribution"
+  },
+  {
+   "n": 18,
+   "area": "Verified outcomes chart",
+   "good": "Excellent direction",
+   "problem": "\"Verified outcome\" is not sufficiently defined",
+   "why": "Donor reporting requires methodological credibility",
+   "rec": "Add methodology / definition link"
+  },
+  {
+   "n": 19,
+   "area": "Green narrative insights",
+   "good": "Good use of plain-language interpretation",
+   "problem": "Some copy moves from data into a n without showing evidence",
+   "why": "Users need traceability",
+   "rec": "Use Observation Evidence Action structure"
+  },
+  {
+   "n": 20,
+   "area": "\"Worth interrogating\"",
+   "good": "Human language",
+   "problem": "Sounds editorial and judgmental",
+   "why": "Institutional users need neutral operational language",
+   "rec": "Replace with: \"Review allocation before next funding cycle.\""
+  },
+  {
+   "n": 21,
+   "area": "Budget consumed by program",
+   "good": "Useful",
+   "problem": "Percentage alone lacks timeline context",
+   "why": "76% spent may be healthy or dangerous depending on period",
+   "rec": "Show % spent + % time elapsed + forecast"
+  },
+  {
+   "n": 22,
+   "area": "Budget risk",
+   "good": "Strong concept",
+   "problem": "Risk classification isn't consistently reflected across screens",
+   "why": "User may see \"On track\" while burn suggests risk",
+   "rec": "Use deterministic health logic"
+  },
+  {
+   "n": 23,
+   "area": "Project health",
+   "good": "Excellent concept",
+   "problem": "Current \"Healthy / Watch / At risk\" logic needs explicit rules",
+   "why": "Financial decisions need predictable thresholds",
+   "rec": "Document thresholds and surface them via tooltip"
+  },
+  {
+   "n": 24,
+   "area": "Project dashboard",
+   "good": "Strong KPI strip",
+   "problem": "Too many KPIs compete equally",
+   "why": "Important signals get diluted",
+   "rec": "Prioritize 3 levels: Outcome / Delivery / Finance"
+  },
+  {
+   "n": 25,
+   "area": "Project status",
+   "good": "Active status visible",
+   "problem": "is \"Active\" doesn't mean healthy",
+   "why": "Status performance",
+   "rec": "Separate Lifecycle status from Health status"
+  },
+  {
+   "n": 26,
+   "area": "Q3 project: 91% consumed",
+   "good": "Very useful warning",
+   "problem": "Screen simultaneously says \"On pace\" while only 630k remains and project ends in 11 days",
+   "why": "This creates trust conflict",
+   "rec": "Change to At risk / Near budget limit"
+  },
+  {
+   "n": 27,
+   "area": "Budget burn-down",
+   "good": "Excellent visualization",
+   "problem": "The chart is too dominant relative to intervention controls",
+   "why": "User sees problem but has limited next action",
+   "rec": "Place Adjust budget / Cap enrolment / Review spend directly beside warning"
+  },
+  {
+   "n": 28,
+   "area": "Forecasting language",
+   "good": "\"Exhausts 2 Oct at this rate\" is powerful",
+   "problem": "Forecast methodology isn't explained",
+   "why": "Important for institutional decisions",
+   "rec": "Add \"Based on current daily spend\" and forecast confidence/data period"
+  },
+  {
+   "n": 29,
+   "area": "Project engagement funnel",
+   "good": "One of the strongest screens",
+   "problem": "It currently describes a funnel but does not make each stage actionable",
+   "why": "11 never-booked beneficiaries are a retention opportunity",
+   "rec": "Make every stage clickable"
+  },
+  {
+   "n": 30,
+   "area": "Consent",
+   "good": "Clearly separated",
+   "problem": "Consent is treated as a number rather than workflow state",
+   "why": "Sponsorship depends on consent",
+   "rec": "Link pending consent to a specific beneficiary action queue"
+  },
+  {
+   "n": 31,
+   "area": "Activation",
+   "good": "Strong",
+   "problem": "Activation isn't clearly defined",
+   "why": "M&E teams need metric definitions",
+   "rec": "Define activation precisely"
+  },
+  {
+   "n": 32,
+   "area": "Booked once / booked again",
+   "good": "Excellent retention signal",
+   "problem": "\"Still active\" needs a formal definition",
+   "why": "Could mislead program reports",
+   "rec": "Define 30-day/period-ba sed activity"
+  },
+  {
+   "n": 34,
+   "area": "Provider tab",
+   "good": "Excellent decision to map providers at Project level",
+   "problem": "Correctly supports granular tracking",
+   "why": "Aligns with design-review decision",
+   "rec": "Keep Project-level and Cohort-level provider assignment"
+  },
+  {
+   "n": 35,
+   "area": "Provider performance",
+   "good": "Session counts visible",
+   "problem": "Too shallow",
+   "why": "Program managers need utilization, capacity and service-delivery quality",
+   "rec": "Add sessions, active beneficiaries, spend, availability and aggregate performance"
+  },
+  {
+   "n": 36,
+   "area": "Program detail",
+   "good": "Strong high-level summary",
+   "problem": "It looks very similar to a Project dashboard",
+   "why": "Strategic layer needs stronger distinction",
+   "rec": "Program page should emphasize target portfolio outcomes allocation"
+  },
+  {
+   "n": 37,
+   "area": "Program progress",
+   "good": "74% target progress",
+   "problem": "No baseline / current / target explanation",
+   "why": "\"74%\" is meaningless without measurement model",
+   "rec": "Show Baseline Current Target"
+  },
+  {
+   "n": 38,
+   "area": "Program target",
+   "good": "\"Wellbeing +10% YoY\"",
+   "problem": "Measurement period isn't strongly connected to baseline",
+   "why": "M&E credibility issue",
+   "rec": "Display baseline date, current value and target date"
+  },
+  {
+   "n": 39,
+   "area": "Program linked Projects",
+   "good": "Good",
+   "problem": "Project health is visible only as utilization",
+   "why": "Need outcome contribution",
+   "rec": "Add project contribution to program target"
+  },
+  {
+   "n": 40,
+   "area": "Program beneficiaries",
+   "good": "238",
+   "problem": "Could be duplicate-counted",
+   "why": "Important for donor reporting",
+   "rec": "Clearly distinguish unique beneficiaries vs total program enrollments"
+  },
+  {
+   "n": 41,
+   "area": "Program spend chart",
+   "good": "Strong",
+   "problem": "Spend concentration warning is useful",
+   "why": "Connects finance to program delivery",
+   "rec": "Keep and add outcome contribution beside spend"
+  },
+  {
+   "n": 42,
+   "area": "Program cohorts",
+   "good": "Good",
+   "problem": "Engagement only",
+   "why": "Cohorts should become operational M&E units",
+   "rec": "Add cohort target, enrollment, activation, utilization, outcomes and spend"
+  },
+  {
+   "n": 43,
+   "area": "Create Program -- linked projects",
+   "good": "Good progressive relationship",
+   "problem": "Existing project selection may be too early",
+   "why": "Could slow program creation",
+   "rec": "Allow create first; link Projects during setup or later"
+  },
+  {
+   "n": 44,
+   "area": "Create Project -- privacy",
+   "good": "Very good",
+   "problem": "Privacy is buried in creation form",
+   "why": "Privacy is foundational in PO architecture",
+   "rec": "Keep, but add concise explanation and link to policy"
+  },
+  {
+   "n": 45,
+   "area": "Privacy model",
+   "good": "Screens acknowledge org default",
+   "problem": "Need stronger consistency with PO privacy model",
+   "why": "Concept Note requires privacy-first behavior",
+   "rec": "Make visibility rules explicit per Program/Project"
+  },
+  {
+   "n": 46,
+   "area": "Reports & ROI connection",
+   "good": "Already implied by metrics",
+   "problem": "Not sufficiently integrated",
+   "why": "Programs are where ROI should be generated",
+   "rec": "Add persistent View Impact Report action"
+  },
+  {
+   "n": 47,
+   "area": "Finance connection",
+   "good": "Budgets visible",
+   "problem": "Finance is treated as a number, not workflow",
+   "why": "Programs should connect allocation to spending",
+   "rec": "Add \"Open budget\" and allocation history"
+  },
+  {
+   "n": 48,
+   "area": "Revenue infrastructure",
+   "good": "Existing projects create ongoing usage",
+   "problem": "No commercial growth loop visible",
+   "why": "Platform revenue is tied to funded activity",
+   "rec": "Contextually surface expansion opportunities"
+  },
+  {
+   "n": 49,
+   "area": "Upsell",
+   "good": "None",
+   "problem": "Missed opportunity",
+   "why": "Growing organizations will need more capacity/reporting",
+   "rec": "Use threshold-based, non-intrusive prompts"
+  },
+  {
+   "n": 50,
+   "area": "Cross-sell",
+   "good": "None",
+   "problem": "Missed opportunity. Program data could drive adjacent EH services",
+   "why": "Lost account expansion",
+   "rec": "Suggest relevant providers, reporting, additional Projects or enterprise billing where contextually relevant"
+  },
+  {
+   "n": 51,
+   "area": "Activation banner",
+   "good": "\"Finish activation\" visible",
+   "problem": "Good conversion mechanism",
+   "why": "But not contextual to Programs",
+   "rec": "Show program setup dependencies: verification funding project beneficiaries providers"
+  },
+  {
+   "n": 52,
+   "area": "Search",
+   "good": "Global search present",
+   "problem": "Placeholder mixes beneficiaries, projects and invoices",
+   "why": "Poor information architecture",
+   "rec": "Use global search but add object-type filters"
+  },
+  {
+   "n": 53,
+   "area": "Filters",
+   "good": "Minimal",
+   "problem": "Large NGOs will quickly outgrow this",
+   "why": "Portfolio management becomes difficult",
+   "rec": "Filter by program, project, geography, status, manager, cohort, provider, funding source"
+  },
+  {
+   "n": 57,
+   "area": "Data consistency",
+   "good": "Many metrics",
+   "problem": "Several sample screens contain different project/program names and amounts",
+   "why": "Prototype inconsistency can become backend inconsistency",
+   "rec": "Establish one canonical demo dataset"
+  },
+  {
+   "n": 56,
+   "area": "Accessibility",
+   "good": "Clean typography",
+   "problem": "Charts rely heavily on color",
+   "why": "Accessibility risk",
+   "rec": "Use labels, patterns, icons and text status in addition to color"
+  },
+  {
+   "n": 58,
+   "area": "Overall",
+   "good": "Strong foundation",
+   "problem": "Currently more like an analytics dashboard than a program-management operating system",
+   "why": "It does not yet fully support the PO lifecycle",
+   "rec": "Evolve into Program → Project → Cohort → Delivery → Finance → Outcomes operating model"
+  }
+ ],
+ "finance": {
+  "Table 1 — Finance Overview, Funding and Wallet": [
+   {
+    "task": "Create Finance Overview",
+    "work": "Add a Finance landing page before Wallet & Funding. Show available funds, committed funds, allocated budgets, actual spend, pending settlements, invoices due and alerts. Add a reporting-period selector and links to detailed views.",
+    "accept": "Finance users immediately understand the organisation's financial positio and know what requires attention.",
+    "impact": "Better finance usability and institutional confidence. n"
+   },
+   {
+    "task": "Redesign Financial Balance Model",
+    "work": "Create separate cards for Available, Allocated, Committed, Reserved, Spent and Pending Settlement. Add short definitions or tooltips explaining each balance.",
+    "accept": "Users can distinguish spendable money from money already assigned, reserved or awaiting settlement.",
+    "impact": "Fewer financial misunderstandings and support requests."
+   },
+   {
+    "task": "Fix Balance Reconciliation",
+    "work": "Define and document the relationship between wallet balance, project budgets, allowances, seats, escrow, provider payables and pending transactions. Show how each figure is calculated.",
+    "accept": "All displayed totals reconcile to agreed business rules and the relevant financial records. No overlapping figures are presented as independent balances.",
+    "impact": "Financial trust and reliable decision-making."
+   },
+   {
+    "task": "Add Balance Calculation Breakdown",
+    "work": "Allow users to click a balance card and see the underlying credits, debits, holds, allocations and other components that explain the figure.",
+    "accept": "Users can understand why a balance has its current value without contacting support.",
+    "impact": "Faster financial investigation."
+   },
+   {
+    "task": "Add Escrow Visibility",
+    "work": "Show funds held in escrow, the related engagement or transaction, amount reserved, release conditions, expected release date where known, and amount released.",
+    "accept": "Users can distinguish available wallet funds from funds held pending an event or condition.",
+    "impact": "Transparent financial operations and stronger provider trust."
+   },
+   {
+    "task": "Add Pending Settlement Visibility",
+    "work": "Show funds awaiting settlement separately from completed wallet credits, provider payouts and reconciled transactions. Include the transaction reference, amount, date and status.",
+    "accept": "Users understand why a payment or payout has not yet become available or completed.",
+    "impact": "Better cash-position visibility and reconciliation."
+   },
+   {
+    "task": "Add Transaction Statuses",
+    "work": "Standardise statuses such as Pending, Processing, Completed, Failed, Reversed, Refunded, Disputed and Reconciliation Required. Confirm which statuses apply to each transaction type.",
+    "accept": "Status labels are consistent across wallet, transactions, invoices, escrow, refunds and payouts.",
+    "impact": "Less confusion and fewer incorrect actions."
+   },
+   {
+    "task": "Add Financial Audit Trail",
+    "work": "Show actor, action, timestamp, affected record, reason, reference and before/after values for material changes. Include budget edits, funding rules, approvals and financial adjustments.",
+    "accept": "Users with the relevant permission can trace who did what, when and why.",
+    "impact": "Enterprise governance and auditability."
+   },
+   {
+    "task": "Design Approval Workflow",
+    "work": "Create approval journeys for actions that require authorisation, such as high-value funding, budget increases, auto-reload changes, billing-mode changes, refunds and payouts. Configure thresholds only after the business rules are confirmed.",
+    "accept": "The requester can track the request; authorised approvers can approve or reject it; the final statu is visible and auditable.",
+    "impact": "Segregation of duties and institutional readiness. s"
+   },
+   {
+    "task": "Add Approval Inbox",
+    "work": "Create a central list of actions awaiting approval. Show request type, amount, requester, project/programme, submission date, urgency and status. Include detail, approve, reject and request-changes actions as permitted.",
+    "accept": "Approvers can identify and process outstanding decisions without searching across multiple modules.",
+    "impact": "Faster workflows and fewer operational delays."
+   },
+   {
+    "task": "Redesign Wallet & Funding",
+    "work": "Organise the page around Available Funds, Funding Sources, Add Funds, Auto-Reload, Escrow and Funding History. Avoid mixing balance information with unrelated settings.",
+    "accept": "Finance users can find the correct funding task quickly and understand the current state of their funds.",
+    "impact": "Finance becomes a practical treasury-control workspace."
+   },
+   {
+    "task": "Improve Top-Up Flow",
+    "work": "Create a clear sequence: enter amount select funding source review fees and limits view expected balance impact complete required authorisation confirm. Show the transaction reference and next steps after submission.",
+    "accept": "Users understand exactly what they are authorising before initiating payment.",
+    "impact": "Improved funding conversion and fewer mistakes."
+   },
+   {
+    "task": "Add Funding Source Management",
+    "work": "Design a funding-source list for payment methods supported by the confirmed Phase 1 payment integration. Allow users to add, view, select, remove or update sources where supported. Distinguish verified and unverified sources.",
+    "accept": "Users can identify the funding source being used and manage it within their permissions.",
+    "impact": "Enterprise flexibility and a smoother funding journey."
+   },
+   {
+    "task": "Add Funding Source Categories",
+    "work": "Where supported by the business model, capture funding attribution such as Grant, Donor, Corporate, Government or Internal Funds. Do not treat an attribution label as proof that the source has been verified.",
+    "accept": "Funds can be associated with the correct source for reporting and budget governance.",
+    "impact": "Better funder reporting and programme accountability."
+   },
+   {
+    "task": "Fix Failed Top-Up UX",
+    "work": "Separate the payment provider's reported status from ElevatedHere's interpretation and next-step guidance. Design distinct states for decline, timeout, pending confirmation and confirmed failure.",
+    "accept": "Users are not told a payment failed if its final outcome is still unknown.",
+    "impact": "Reduced confusion and duplicate payments."
+   },
+   {
+    "task": "Create Payment Recovery Flow",
+    "work": "For each failed or unresolved payment, provide the appropriate next action: check status, retry safely, change method, follow bank-transfer instructions where supported, or contact support. Preserve the transaction reference.",
+    "accept": "Users know how to recover from a payment problem without restarting the entire journey or creating duplicate attempts.",
+    "impact": "Lower payment abandonment and fewer support escalations."
+   },
+   {
+    "task": "Add Top-Up Success Actions",
+    "work": "On successful funding, show the confirmed amount, transaction reference, payment method, updated balance and receipt action. Add Allocate Funds and View Transaction shortcuts.",
+    "accept": "The user can verify the result and move directly to the next relevant task.",
+    "impact": "Converts successful funding into programme activation."
+   },
+   {
+    "task": "Improve Auto-Reload",
+    "work": "Add trigger threshold, reload amount, selected source, frequency/limit rules where supported, notification preferences, authorisation and rule status. Provide Edit, Pause and Disable actions.",
+    "accept": "Users understand when a charge will occur and can control or stop automatic funding.",
+    "impact": "Funding continuity with appropriate financial safeguards."
+   },
+   {
+    "task": "Add Funding Alerts",
+    "work": "Design alerts for low balance, failed funding, pending payment, high burn rate, budget threshold, overdue invoice and relevant escrow events. Link each alert to the record or action that resolves it.",
+    "accept": "Alerts are specific, actionable and dismissible where appropriate; users are not forced to hunt for the issue.",
+    "impact": "Reduced operational failures and interruptions."
+   },
+   {
+    "task": "Add Funding History",
+    "work": "Create a searchable list of successful, pending and failed funding attempts, with date, amount, source, status and reference.",
+    "accept": "Finance can trace funding activity from initiation through the final confirmed status.",
+    "impact": "Better reconciliation and customer support."
+   }
+  ],
+  "Table 2 — Budget Pools, Programme Funding and Allowances": [
+   {
+    "task": "Redesign Budget Cards",
+    "work": "Show Budget Cap, Committed, Spent, Remaining/Available and Forecast where supported. Include the project/programme name, period and budget status.",
+    "accept": "Users can distinguish approved allocation, actual consumption and outstanding commitments.",
+    "impact": "Better programme and budget management."
+   },
+   {
+    "task": "Add Budget Health",
+    "work": "Introduce Healthy, Watch, At Risk and Exhausted states. Define thresholds with the product owner and finance lead. Consider utilisation, remaining funds and burn rate rather than relying on one percentage alone.",
+    "accept": "Budget health communicates a meaningful financial condition, not just a decorative progress bar.",
+    "impact": "Earlier intervention and better expenditure control."
+   },
+   {
+    "task": "Add Budget States",
+    "work": "Design Draft Pending Approval Active Near Limit Exhausted Closed. Add Rejected or Cancelled where the confirmed workflow requires them.",
+    "accept": "Each budget has a clear status and users can understand which actions are available at each stage.",
+    "impact": "Consistent budget lifecycle and fewer operational errors."
+   },
+   {
+    "task": "Redesign Create Budget Pool",
+    "work": "Add budget name, purpose, funding source, programme/project, amount, budget period, owner, eligible spending categories or services where applicable, and approval requirements. Show the wallet balance and remaining unallocated funds before submission.",
+    "accept": "Users can create a budget with sufficient context and understand the impact on available funds before confirming.",
+    "impact": "Controlled allocation and reduced misallocation."
+   },
+   {
+    "task": "Add Funding Restrictions",
+    "work": "Allow authorised users to associate a pool with approved programmes, projects, regions, services or beneficiary cohorts where the product rules support restrictions. Show restrictions clearly on the budget detail page.",
+    "accept": "Users can understand where funds may and may not be used. Restricted funds cannot be presented as unrestricted spending capacity.",
+    "impact": "Donor/grant governance and programme accountability."
+   },
+   {
+    "task": "Improve Budget Detail",
+    "work": "Add budget cap, spent, committed, available, forecast where supported, members/beneficiaries, related transactions, linked allowances, allocation history and approval history.",
+    "accept": "Finance users can investigate the budget and its financial activity from one page.",
+    "impact": "Better financial control and faster investigations."
+   },
+   {
+    "task": "Add Budget Approval Flow",
+    "work": "Design Request More Budget enter amount provide reason identify funding source or proposed reallocation submit approver decision status update.",
+    "accept": "Requests can be tracked from submission to final decision. Requested funds do not appear as available before approval and allocation.",
+    "impact": "Enterprise controls and predictable programme spending."
+   },
+   {
+    "task": "Improve Request More Budget",
+    "work": "Add requested amount, justification, urgency, required date, affected programme/project, source of additional funding where known and relevant supporting information.",
+    "accept": "Approvers have enough information to decide without repeatedly requesting missing details.",
+    "impact": "Faster budget decisions and less administrative friction."
+   },
+   {
+    "task": "Separate Budget Increase from Reallocation",
+    "work": "Create distinct actions for Request Additional Funds, Reallocate Existing Funds and Change Approved Budget Cap. Explain the effect of each action before submission.",
+    "accept": "Users understand whether they are requesting new money, moving existing funds or changing an authorised limit.",
+    "impact": "Prevents misleading balances and uncontrolled expenditure."
+   },
+   {
+    "task": "Add Budget Change History",
+    "work": "Show previous and new budget values, actor, reason, approval, date and related funding source for each change.",
+    "accept": "Users can trace the history of budget changes without relying on manual records.",
+    "impact": "Audit readiness and transparent governance."
+   },
+   {
+    "task": "Add Budget Alerts",
+    "work": "Design notifications for approaching limits, exhaustion, unusual burn rate, pending budget approval and unused allocations near their end date where dates exist.",
+    "accept": "The right person receives a relevant alert with a direct route to the affected budget.",
+    "impact": "Reduced service interruption and under-utilised funding."
+   },
+   {
+    "task": "Add Burn Rate",
+    "work": "Show average weekly or monthly expenditure over a clearly stated period. Explain the calculation and exclude or separately identify commitments where appropriate.",
+    "accept": "Users understand the rate at which a programme consumes funds and can inspect the underlying data.",
+    "impact": "Better financial planning."
+   },
+   {
+    "task": "Add Spend Forecast",
+    "work": "Show an estimated depletion date or future spend projection only where sufficient, reliable historical and commitment data exists. State the assumptions and period used.",
+    "accept": "Forecasts are clearly labelled as estimates and can be traced to their underlying calculation.",
+    "impact": "Improved treasury planning without overstating certainty."
+   },
+   {
+    "task": "Add Runway",
+    "work": "Display estimated months or weeks of funding remaining when the calculation is meaningful. Show the period and burn-rate assumptions used.",
+    "accept": "The user can understand how long funds may last at the current rate and see why the estimate may change.",
+    "impact": "Earlier funding and programme-c ontinuity planning."
+   },
+   {
+    "task": "Add Cost Centre",
+    "work": "Where required by the customer model, support attribution to department, programme, grant, region or other approved cost centre.",
+    "accept": "Expenditure can be grouped by an agreed organisational structure without relying on free-text labels alone.",
+    "impact": "Enterprise accounting and institutional adoption."
+   },
+   {
+    "task": "Add Project Spend View",
+    "work": "Create a drill-down from Project Budget Spend Provider/Service Provider Engagement or service reference, subject to access permissions.",
+    "accept": "Users can trace programme expenditure to its relevant financial and operational records without exposing private service content.",
+    "impact": "Programme management and financial accountability."
+   },
+   {
+    "task": "Add Beneficiary Funding View",
+    "work": "Where permitted, show beneficiary reference, allowance, consumed amount, remaining allowance and linked transactions. Use privacy-safe identifiers where possible.",
+    "accept": "Finance can understand sponsorship utilisation without access to private clinical notes, case evidence or session content.",
+    "impact": "B2B2C financial transparency and beneficiary privacy."
+   },
+   {
+    "task": "Upgrade Allowance Management",
+    "work": "Add allowance scope, eligible members, effective date, frequency, expiry, rollover rules, service restrictions, exhaustion behaviour and exception rules.",
+    "accept": "Users can understand how allowance policies work and who will be affected by a change.",
+    "impact": "Prevents uncontrolled spending and inconsistent benefits."
+   },
+   {
+    "task": "Add Allowance Exception Workflow",
+    "work": "Design individual or cohort exceptions with reason, requested change, effective date, authorisation, status and history. Include bulk-change review.",
+    "accept": "Exceptions are visible, controlled and auditable rather than silently overriding the default policy.",
+    "impact": "Better expenditure control at scale."
+   },
+   {
+    "task": "Improve Member and Cohort Allocation",
+    "work": "Show the number of eligible, assigned, active and excluded members or beneficiaries where these concepts are supported. Explain how allocations relate to the programme budget.",
+    "accept": "Users can understand the population covered and the effect of allocating funds or allowances.",
+    "impact": "Better programme planning and utilisation."
+   },
+   {
+    "task": "Add Budget Closure Flow",
+    "work": "Design the close-budget action with remaining balance, outstanding commitments, pending payments and unresolved exceptions.",
+    "accept": "A budget cannot appear cleanly closed while unresolved financial items are hidden from the user.",
+    "impact": "Stronger financial governance and accurate reporting."
+   }
+  ],
+  "Table 3 — Invoices, Seats, Transactions and Accounting Controls": [
+   {
+    "task": "Redesign Invoices & Seats",
+    "work": "Separate Invoices from Subscriptions & Seats conceptually, even if they remain under one Finance navigation group. Give each area its own list, filters and primary actions.",
+    "accept": "Users understand the difference between an amount owed and a subscription or seat entitlement.",
+    "impact": "Clearer Finance information architecture."
+   },
+   {
+    "task": "Improve Invoice List",
+    "work": "Show invoice number, billing period, issue date, due date, total, amount paid, outstanding amount, currency and status. Add filters for paid, unpaid, overdue, disputed and draft where applicable.",
+    "accept": "Finance users can identify outstanding liabilities or receivables and find the relevant invoice quickly.",
+    "impact": "Better billing operations."
+   },
+   {
+    "task": "Improve Invoice Detail",
+    "work": "Include invoice line items, programme/project, funding source, billing period, applicable fees/taxes, total, amount paid, balance due, payment status and related transaction references.",
+    "accept": "A downloadable invoice can be traced to the relevant charges and payment records.",
+    "impact": "Enterprise billing and reconciliation."
+   },
+   {
+    "task": "Add Invoice Actions",
+    "work": "Provide View, Download, Pay where supported, Dispute, Share and View Related Transactions. Display actions only when valid for the invoice status and user's permissions.",
+    "accept": "Users can take the appropriate next step without ambiguity or unavailable actions.",
+    "impact": "Complete invoice lifecycle and fewer billing queries."
+   },
+   {
+    "task": "Add Invoice Status Lifecycle",
+    "work": "Design Draft, Issued, Pending Payment, Partially Paid where supported, Paid, Overdue, Disputed, Cancelled and Credited/Adjusted states as appropriate.",
+    "accept": "Statuses reflect the actual invoice lifecycle and do not imply payment when only an invoice has been issued.",
+    "impact": "Reliable billing communication."
+   },
+   {
+    "task": "Add Payment Terms Visibility",
+    "work": "Display due dates, approved payment terms and the relevant billing contact or escalation route where available. Do not imply that credit terms are available to every organisation.",
+    "accept": "Organisations understand when payment is due and what terms apply to their account.",
+    "impact": "Better postpaid conversion and collections."
+   },
+   {
+    "task": "Add Credit Note / Invoice Adjustment Flow",
+    "work": "If in Phase 1, design the adjustment request, reason, affected invoice, amount, approval and relationship to the original invoice.",
+    "accept": "Adjustments are linked to the original invoice and traceable through their lifecycle.",
+    "impact": "Better financial accuracy and auditability."
+   },
+   {
+    "task": "Improve Seat Management",
+    "work": "Show purchased, assigned, active, unused, available and renewal seats where these are distinct in the product model. Include plan, period, cost and linked programme/project.",
+    "accept": "Users can understand the number of seats purchased, assigned and available, and what they are paying for.",
+    "impact": "Clear subscription economics."
+   },
+   {
+    "task": "Add Seat Assignment Flow",
+    "work": "Design selection of eligible members/cohorts, seat assignment, confirmation, assignment success and removal/reassignment states. Explain billing consequences where applicable.",
+    "accept": "Users understand who receives a seat and whether changing an assignment affects billing o access.",
+    "impact": "Easier programme activation and administration. r"
+   },
+   {
+    "task": "Add Subscription Lifecycle",
+    "work": "Where subscriptions are in Phase 1, show active plan, billing period, renewal date, status, upgrade/downgrade options and cancellation consequences.",
+    "accept": "Users can manage their plan with clear pricing and timing information.",
+    "impact": "Recurring revenue and retention."
+   },
+   {
+    "task": "Add Enterprise Commercial CTA",
+    "work": "Where postpaid invoicing, custom billing or a large programme is unavailable for self-service, add Talk to ElevatedHere about enterprise billing or a suitabl request/demo action.",
+    "accept": "Users have a clear path forward instead of encountering a dead end e when their requirements exceed self-service functionality.",
+    "impact": "Sales-assisted conversion."
+   },
+   {
+    "task": "Build Transaction List",
+    "work": "Add transaction reference, date/time, transaction type, payer/source, recipient/destination where relevant, project/programme, provider/beneficiary reference, gross amount, fees, net amount and status.",
+    "accept": "Finance users can filter, searc and identify transactions without depending on informal labels alone.",
+    "impact": "Better financial h investigation and reporting."
+   },
+   {
+    "task": "Build Transaction Detail Drawer",
+    "work": "Show unique reference, event timeline, payer, recipient, source, destination, gross, fee breakdown, net amount, currency, funding source, status, related invoice, budget and original transaction where relevant.",
+    "accept": "Finance can investigate the transaction without losing the context of the transaction list.",
+    "impact": "Faster support and reconciliation."
+   },
+   {
+    "task": "Add Financial Ledger View",
+    "work": "Design a dedicated ledger view with posting date, journal reference, account, debit, credit, currency, source transaction and audit history, subject to confirmation of the accounting architecture.",
+    "accept": "Users can distinguish operational transaction history from formal accounting postings.",
+    "impact": "Accounting traceability and financial control."
+   },
+   {
+    "task": "Define Chart of Accounts UI",
+    "work": "ElevatedHere is intended to own the accounting system of record, design the account list, account codes, account type, status and account-detail view.",
+    "accept": "The interface reflects the agreed accounting architecture rather than suggesting that a transaction list is a complete general ledger.",
+    "impact": "Correct architecture and reduced rework."
+   },
+   {
+    "task": "Add Reconciliation Workspace",
+    "work": "Design a workspace for matching payment gateway transactions wallet ledger escrow movements provider payouts. Include statement/settlement batch, matched/unmatched records, discrepancy amount, owner and resolution status.",
+    "accept": "Finance can identify mismatches, investigate them and track their resolution.",
+    "impact": "Enterprise financial control."
+   },
+   {
+    "task": "Add Reconciliation Exceptions",
+    "work": "Create detail states for missing transactions, duplicate references, amount mismatches, timing differences and unresolved settlement items, where these can occur in the actual integration.",
+    "accept": "Exceptions have a clear explanation, responsible owner and next action.",
+    "impact": "Fewer undetected discrepancies."
+   },
+   {
+    "task": "Add Refunds and Reversals table",
+    "work": "Design refund/reversal request, original transaction link, reason, amount, affected budget, approval, processing status, failure handling and audit trail. Include disputed/chargeback states to the payment integration.",
+    "accept": "Every adjustment can be traced to its original event and its final outcome.",
+    "impact": "Safe financial recovery and complete transaction lifecycle."
+   },
+   {
+    "task": "Add Payout Visibility table",
+    "work": "Show provider, engagement/service reference, gross amount, platform fee, payment fees where applicable, net payable, escrow status, payout status, payment date and reference.",
+    "accept": "Finance can understand how an engagement's amount relates to the provider's expected and completed payout.",
+    "impact": "Provider trust and transparent financial operations."
+   },
+   {
+    "task": "Add Configurable Fee/Tax Breakdown",
+    "work": "Display service amount, platform commission, payment processing fee, applicable taxes and other charges separately wherever relevant..",
+    "accept": "Users can understand how the total amount is calculated and how the amount payable differs from platform revenue.",
+    "impact": "Pricing transparency and fewer disputes."
+   },
+   {
+    "task": "Add FX Architecture",
+    "work": "multi-currency is in scope, so display transaction currency, settlement currency, reporting currency, exchange rate, rate date/time, converted amount and applicable FX fees.",
+    "accept": "The interface never silently treats values in different currencies as directly comparable.",
+    "impact": "International-pr ogram readiness."
+   },
+   {
+    "task": "Add Export Centre",
+    "work": "Provide CSV/PDF exports for transactions, budgets, invoices and reconciliation records, with filters by date, project, provider, beneficiary reference where permitted, funding source and currency.",
+    "accept": "Users can export records for finance review and reporting without manually rebuilding the data in spreadsheets.",
+    "impact": "Operational efficiency and institutional reporting."
+   },
+   {
+    "task": "Add Export Permissions and History",
+    "work": "Where required, show export availability by role and record export activity for sensitive financial reports. Clearly indicate applied filters and reporting period.",
+    "accept": "Users can tell what data is being exported and whether their role permits the action.",
+    "impact": "Data governance and auditability."
+   }
+  ],
+  "Table 4 — Financial Reports, Programme Economics and Social Impact": [
+   {
+    "task": "Create Financial Reports Overview",
+    "work": "Add a report catalogue covering financial transactions, budget performance, invoice status, programme spend, provider payments and funding utilisation.",
+    "accept": "Finance users can find the appropriate report without navigating through individual operational screens.",
+    "impact": "Better reporting efficiency and enterprise adoption."
+   },
+   {
+    "task": "Connect Finance to Reports & ROI",
+    "work": "Add a View Programme Performance or View Impact of This Spend action from relevant budget, project and transaction views. Carry the relevant project/programme and reporting period into the destination report.",
+    "accept": "Users can move from a financial record to its related utilisation and outcome information without restarting their search.",
+    "impact": "Connects financial operations to measurable programme value."
+   },
+   {
+    "task": "Connect Reports to Finance",
+    "work": "On a programme or impact report, add View Investment Behind This Outcome. Link to the associated project, budget and expenditure records subject to the user's permissions.",
+    "accept": "Users can trace reported programme results to the relevant financial investment.",
+    "impact": "Greater funder confidence and improved renewal discussions."
+   },
+   {
+    "task": "Add Programme Economics",
+    "work": "Create views of expenditure by programme, project, provider, service and reporting period. Include budget versus actual spend and relevant utilisation measures.",
+    "accept": "Finance users can see where money is going and compare expenditure with service delivery.",
+    "impact": "Better resource allocation and programme management."
+   },
+   {
+    "task": "Add Cost per Beneficiary",
+    "work": "Define the calculation as eligible programme expenditure divided by an agreed beneficiary denominator. Show the selected period, population, inclusions and exclusions.",
+    "accept": "Users understand what the metric means and which beneficiaries and costs were included.",
+    "impact": "More transparent social-impact reporting."
+   },
+   {
+    "task": "Add Cost per Active Beneficiary",
+    "work": "Distinguish total beneficiarie covered from beneficiaries who actively used a service during the reporting period. Document the active-use definition.",
+    "accept": "s Cost comparisons do not confuse assigned or eligible members with actual service users.",
+    "impact": "Better utilisation and funding-efficie ncy analysis."
+   },
+   {
+    "task": "Add Cost per Session / Service",
+    "work": "Connect relevant expenditure with completed sessions or delivered services. Define how cancelled, refunded, unpaid and externally paid services are treated.",
+    "accept": "The denominator and included expenditure are explicit, and users can drill down to supporting records.",
+    "impact": "Better service economics and procurement decisions."
+   },
+   {
+    "task": "Add Cost per Outcome",
+    "work": "If outcome data and methodology are available, connect verified programme outcomes with relevant expenditure. Document the outcome definition, measurement period and cost attribution.",
+    "accept": "The metric is only displayed when sufficient valid data exists; users can inspect the methodology and limitations.",
+    "impact": "More credible donor and programme evaluation."
+   },
+   {
+    "task": "Add Funding Performance",
+    "work": "Compare budget utilisation with relevant programme engagement, such as eligible beneficiaries, active beneficiaries and completed services. Avoid implying that utilisation alone proves effectiveness.",
+    "accept": "Finance users can see the relationship between expenditure and programme activity without confusing activity with impact.",
+    "impact": "Better funding allocation decisions."
+   },
+   {
+    "task": "Add Programme ROI",
+    "work": "Design an ROI view only after the product owner defines what constitutes a return, how it is valued and which costs and outcomes are included. Display the calculation and assumptions.",
+    "accept": "ROI is not presented as a generic score or calculated from spend and activity alone.",
+    "impact": "Credible programme evaluation and renewal support."
+   },
+   {
+    "task": "Add Social Return View",
+    "work": "Where a validated methodology exists, show the relationship between investment, reach, utilisation and measured outcomes. Explain the methodology and any monetised assumptions.",
+    "accept": "The report distinguishes financial expenditure, service reach, measured outcomes and estimated social value.",
+    "impact": "Stronger social-impact reporting."
+   },
+   {
+    "task": "Add Funder Reporting",
+    "work": "Design an exportable programme report combining approved financial information, budget performance, beneficiary reach, utilisation and permitted outcome metrics. Include reporting period and funding-source attribution.",
+    "accept": "The report can be understood outside ElevatedHere and contains clear definitions, totals and relevant supporting details.",
+    "impact": "NGO and international development adoption."
+   },
+   {
+    "task": "Add Geographic Finance",
+    "work": "If multi-country or regional reporting is supported, allow expenditure and budgets to be grouped by country, region, programme and project. Show currency context for each view.",
+    "accept": "Users can understand geographic spending without mixing currencies or losing the underlying project attribution.",
+    "impact": "Multi-country programme readiness."
+   },
+   {
+    "task": "Add Budget-Year Model",
+    "work": "If required by target organisations, support approved financial-year and reporting-period views, including quarter-based reporting such as FY/Q1/Q2/Q3/Q4. Confirm how these periods are configured.",
+    "accept": "Users can filter and compare expenditure against the organisation's agreed reporting calendar.",
+    "impact": "Government and NGO budgeting support."
+   },
+   {
+    "task": "Add Procurement References",
+    "work": "Where required, capture and display purchase order number, grant code, contract reference and other agreed institutional identifiers on relevant budgets, invoices and transactions.",
+    "accept": "Finance teams can search and reconcile records against their internal procurement or grant-management references.",
+    "impact": "Institutional procurement readiness."
+   },
+   {
+    "task": "Add Historical Programme Comparison",
+    "work": "Where sufficient comparable data exists, allow users to compare current programme expenditure and utilisation with previous periods. Clearly identify differences i scope, population and methodology.",
+    "accept": "Comparisons use consistent definitions or explain wheren definitions differ.",
+    "impact": "Better strategic decisions and planning."
+   },
+   {
+    "task": "Add Financial Health Alerts",
+    "work": "Consolidate low balance, high burn, approaching budget limits, overdue invoices, unused allocations and relevant pending approvals into an actionable alert view.",
+    "accept": "Each alert explains the issue, its affected record and the available next action.",
+    "impact": "Reduced funding interruptions and better oversight."
+   },
+   {
+    "task": "Add Report Definitions and Data Freshness",
+    "work": "Show report date range, last updated time, calculation definitions and any material data limitations. Distinguish provisional information from confirmed financial records where necessary.",
+    "accept": "Users understand what the report represents and whether all relevant transactions have been processed.",
+    "impact": "Trustworthy institutional reporting."
+   }
+  ],
+  "Table 5 — Enterprise Readiness, Security, Onboarding and Conversion": [
+   {
+    "task": "Redesign Partner Organisation Onboarding",
+    "work": "Let prospective organisations understand the platform and explore permitted areas before completing every administrative requirement. Add a guided checklist for organisation verification, authorised signatory, billing/funding setup and activation.",
+    "accept": "Users can see what remains to be completed and why each requirement matters. Funding and activation remain gated where verification is mandatory.",
+    "impact": "Less onboarding abandonment without weakening controls."
+   },
+   {
+    "task": "Add Verification Status and Recovery",
+    "work": "Show Not Started, In Progress, Action Required, Approved or Rejected where those states match the actual verification workflow. Provide the required next step and a route to resolve problems.",
+    "accept": "Users understand the verification status and can continue from where they stopped.",
+    "impact": "Better institutional onboarding completion."
+   },
+   {
+    "task": "Lead with Intent, Not Roles",
+    "work": "Begin with the organisation's objective--such as funding a wellness programme, sponsoring beneficiaries, managing service access or reporting programme expenditure--before exposing complex module choices.",
+    "accept": "Users can identify a relevant starting poin without understanding ElevatedHere's internal role or module structure.",
+    "impact": "Highert activation and less early-stage confusion."
+   },
+   {
+    "task": "Delay Non-Essential Friction",
+    "work": "Allow users to explore permitted features and prepare draft configurations before completing steps that are only required for funding or go-live. Save progress and explain blocked actions.",
+    "accept": "Users can experience value early, while mandatory compliance and financial gates remain intact.",
+    "impact": "Lower drop-off during onboarding."
+   },
+   {
+    "task": "Create First-Value Journey",
+    "work": "After organisation setup or funding, guide the user to the next meaningful action: create a programme/project, allocate funds, configure allowances or enrol eligible beneficiaries.",
+    "accept": "Users know how to move from setup to actual programme activation.",
+    "impact": "Faster time to value and better retention."
+   },
+   {
+    "task": "Add Enterprise Sales-Assisted Route",
+    "work": "For organisations needing custom billing, large-scale deployment, procurement support or unavailable self-service features, add a clear Talk to ElevatedHere or Request a Consultation action.",
+    "accept": "Users have a viable next step when their needs exceed the available self-service workflow.",
+    "impact": "Enterprise lead generation and assisted conversion."
+   },
+   {
+    "task": "Explain Billing Models Before Selection",
+    "work": "Compare prepaid wallet, postpaid invoicing and per-seat subscription using payment timing, fees, eligibility, limits, operational requirements and the appropriate next step. Confirm which options are actually available in Phase 1.",
+    "accept": "Users understand the consequences of choosing a billing model. Unavailable options are clearly labelled rather than presented as functional.",
+    "impact": "Better commercial conversion and fewer abandoned selections."
+   },
+   {
+    "task": "Add Funding and Budget Notifications",
+    "work": "Design in-product notification patterns for lo balances, pending approvals, budget exhaustion, invoice due dates and failed payments. Define which roles receive each notification with the product owner.",
+    "accept": "Alerts reach relevant w users and provide a direct link to the action or record that needs attention.",
+    "impact": "Fewer missed actions and programme interruptions."
+   },
+   {
+    "task": "Design Role-Based Finance Navigation",
+    "work": "Create role-appropriate views for Owner, Admin/Manager, Project Manager, Finance/Billing and Analyst/Viewer, using the permissions defined in the PO Concept Note.",
+    "accept": "Users see the functions relevant to their role without being given unauthorised financial access.",
+    "impact": "Better usability and security."
+   },
+   {
+    "task": "Design Permission-Based Actions",
+    "work": "Distinguish View, Create, Edit, Submit for Approval, Approve, Export and Administer permissions. Design hidden/disabled actions and clear permission-denied states.",
+    "accept": "The interface communicates why an action is unavailable and what authorised route exists, without exposing protected information.",
+    "impact": "Reduced risk and fewer operational errors."
+   },
+   {
+    "task": "Protect Beneficiary Privacy",
+    "work": "Keep clinical notes, session content, dispute/case evidence and other private service information out of PO finance views. Define which named operational information is permitted fo each role and consent context.",
+    "accept": "Finance reporting provides the necessary financial information without becoming a route to private beneficiary content. r",
+    "impact": "Trust, privacy and institutional credibility."
+   },
+   {
+    "task": "Add Privacy-Safe Aggregate Reporting",
+    "work": "Where outcome reporting is permitted, show appropriately aggregated data and apply the approved minimum cohort/privacy rules. Avoid presenting small groups in ways that expose individual identities.",
+    "accept": "Reports provide useful programme information without revealing sensitive individual data.",
+    "impact": "Responsible social-impact measurement."
+   },
+   {
+    "task": "Support External Provider Payments",
+    "work": "If an organisation pays a provider outside ElevatedHere, distinguish Paid Through ElevatedHere from Recorded Externally. Provide fields for an external reference and evidence where required.",
+    "accept": "Reports do not imply that externally recorded payments were processed or reconciled by ElevatedHere.",
+    "impact": "Accurate expenditure reporting and provider transparency."
+   },
+   {
+    "task": "Add Empty States",
+    "work": "Design meaningful first-use states for no funding sources, no budgets, no transactions, no invoices, no reports and no pending approvals. Provide one relevant next action per state.",
+    "accept": "New organisations know how to begin instead of encountering blank tables or unexplained zero values.",
+    "impact": "Improved activation and task completion."
+   },
+   {
+    "task": "Add Loading and Error States",
+    "work": "Design loading, validation, session expiry, gateway timeout, permission denial, export failure and recoverable system-error states for core finance tasks. Preserve entered information when safe.",
+    "accept": "Users understand what happened and how to recover without losing work unnecessarily.",
+    "impact": "Better UX reliability and fewer support requests."
+   },
+   {
+    "task": "Improve Accessibility and Responsive Layouts",
+    "work": "Check typography, contrast, keyboard navigation, focus states, error messaging, table responsiveness and status indicators. Ensure status i not communicated through colour alone.",
+    "accept": "Core financial tasks remain understandable and usable across supported screens sizes and interaction methods.",
+    "impact": "Broader usability and reduced training burden."
+   },
+   {
+    "task": "Standardise Finance Design Components",
+    "work": "Create reusable components for amount/currency fields, status badges, tables, alerts, confirmation dialogs, approval states, filters, date ranges and transaction references.",
+    "accept": "Finance screens use consistent labels, spacing, interaction patterns and status meanings.",
+    "impact": "Faster design and development with less inconsistency."
+   }
+  ],
+  "Table 6 — Final Phase 1 Design Handoff and Acceptance": [
+   {
+    "task": "Create Finance Sitemap",
+    "work": "Document all Finance pages, navigation items, detail views, drawers, modals and links to related PO modules.",
+    "accept": "No required Finance task is missing from the screen inventory.",
+    "impact": "Complete and consistent information architecture."
+   },
+   {
+    "task": "Create End-to-End User Flows",
+    "work": "Map funding, allocation, allowance setup, invoice review, transaction investigation, approval, reconciliation and reporting from start to completion.",
+    "accept": "Each critical task has a clear starting point, success state and recovery route.",
+    "impact": "Fewer drop-offs and incomplete workflows."
+   },
+   {
+    "task": "Create Screen-State Inventory",
+    "work": "For each core screen, list its default, empty, loading, success, pending, error, restricted-access and completed states as applicable.",
+    "accept": "No critical action is designed only for the happy path.",
+    "impact": "More resilient product experience."
+   },
+   {
+    "task": "Run Financial Consistency Review",
+    "work": "Review all displayed sample balances, budget calculations, fees, transaction statuses and report figures with the relevant finance/engineering stakeholders.",
+    "accept": "Sample data follows the documented rules and balances reconcile across connected screens.",
+    "impact": "Greater financial accuracy and trust."
+   },
+   {
+    "task": "Run Permissions and Privacy Review",
+    "work": "Check every finance screen and export for role-based access, beneficiary-data exposure and approval restrictions.",
+    "accept": "Users cannot access information or actions outside the agreed permission model.",
+    "impact": "Governance and privacy protectio"
+   }
+  ]
+ }
+}

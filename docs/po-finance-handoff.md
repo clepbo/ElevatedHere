@@ -1,7 +1,7 @@
 # PO Finance — Phase 1 design handoff
 
 Satisfies QA Table 6. Figma file `1gK0GIsSnf3Efu2yXXpbrR`, page **Partner-Organizations**.
-51 Finance screens.
+51 Finance screens in the first pass; see 1a and 1b for what the second pass added.
 
 ---
 
@@ -51,6 +51,55 @@ Financials
 
 Role variants exist for Owner, Admin/Manager and Finance/Billing. Project Manager reaches budget
 requests through Project Workspace; Analyst/Viewer sees aggregate reporting only.
+
+### 1a. Added in the second QA pass
+
+New screens: **Withdrawal Submitted** (after Withdraw to Bank), **Credit Note · Invoice Adjustment**
+(from the invoice list), **Ledger** and **Chart of Accounts** (from Reports and Transactions), and
+**Help & Support** (sidebar, every role). Help & Support holds the explanations that used to sit on
+task screens: who approves what, budget states, allowances and exceptions, escrow, funding rules
+and report definitions.
+
+### 1b. Drawers, modals and toasts (Owner)
+
+Every one is a frame on the canvas beside the screen that opens it. Indented items are reached from
+the drawer above them. Role copies exist wherever another role can open the same action; an action
+the role may not take opens **This needs an Owner** instead.
+
+```
+Overview ..................... Snooze
+Financials · Overview ........ Committed Funds · Pending Settlement
+Escrow ....................... Release Schedule · Escrow Engagement
+Wallet & Funding ............. Add Funding Source · Manage Funding Source → Remove Funding Source
+                               Grant Restrictions · Copied
+Top Up Wallet ................ Authorise Payment (→ Wallet Funded, or "Bank not responding?" → Outcome Unknown)
+Wallet Funded ................ Download Started
+Top Up — Failed .............. Bank Transfer Details · Contact Support
+Top Up — Outcome Unknown ..... Saved (notify me)
+Auto-reload Rules ............ Edit Auto-reload → Authorise Change · Pause Auto-reload · Disable Auto-reload
+Withdraw to Bank ............. Withdrawal Destination · Confirm Withdrawal (→ Withdrawal Submitted)
+Convert Currency ............. Confirm Conversion
+Verify Identity · KYC ........ Upload Document · Verification Submitted
+Manage Budget Pool ........... Add Funds · Reallocate Funds · Change Cap · Close Budget Pool · Procurement References
+Pool Created ................. Edit Restrictions
+Allowances ................... Edit Allowance Defaults
+Allowance Exceptions ......... Add Exception · Exception Detail · Bulk Changes
+Budget Planning .............. Set Programme Budget · Allocate Budget · Plan Next FY · Change FY Start
+Approvals .................... Request Top-up · Request Refund · Request Billing Mode
+                               Approve Request → Approved · Decline Request → Declined · Ask For Detail
+Invoices & Seats ............. Switch To Manual · Fallback Method · Change Seats · Assign Seats → Seats Assigned
+                               Release Seats · Enterprise Billing
+Invoice Detail ............... Pay Invoice → Invoice Paid · Share Invoice
+Dispute Invoice .............. Choose Reason · Dispute Submitted
+Credit Note .................. Credit Note Issued
+Transaction Detail ........... Dispute Transaction · Sessions
+Refund or Reverse ............ Refund Complete
+Provider Payouts ............. Payout Schedule · Record External Payment
+Reconciliation ............... Import Statement · Run Reconciliation → Reconciliation Complete · Reconciliation Exception
+Chart of Accounts ............ Account Detail
+Cost Centres ................. Add Cost Centre · Add Country
+Every screen ................. Search · Display Currency · Account Menu · Period · Export
+```
 
 ---
 
